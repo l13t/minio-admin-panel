@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: #2c3e50;
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .logo {
+            color: #C72E29;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-server logo"></i>
+                        <span class="logo ms-2">MinIO Admin</span>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        {{if .permissions.canListBuckets}}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/buckets">
+                                <i class="fas fa-bucket me-2"></i>Buckets
+                            </a>
+                        </li>
+                        {{end}}
+                        {{if .permissions.canManageUsers}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">
+                                <i class="fas fa-users me-2"></i>Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/groups">
+                                <i class="fas fa-layer-group me-2"></i>Groups
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/policies">
+                                <i class="fas fa-shield-alt me-2"></i>Policies
+                            </a>
+                        </li>
+                        {{end}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/settings">
+                                <i class="fas fa-cogs me-2"></i>Settings
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- User Info -->
+                    <div class="mt-3 pt-3 border-top border-secondary">
+                        <div class="text-center text-light">
+                            <div class="small">Logged in as:</div>
+                            <div class="fw-bold">{{.username}}</div>
+                            <div class="badge bg-primary mt-1">{{.policy_name}}</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto pt-4">
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-outline-light w-100">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Buckets</h1>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#createBucketModal">
+                        <i class="fas fa-plus me-2"></i>Create Bucket
+                    </button>
+                </div>
+
+                <!-- Buckets Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Creation Date</th>
+                                        <th>Size</th>
+                                        <th>Objects</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bucketsTableBody">
+                                    {{range .buckets}}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-bucket me-2 text-primary"></i>{{.Name}}
+                                        </td>
+                                        <td>{{.CreationDate}}</td>
+                                        <td>{{formatBytes .Size}}</td>
+                                        <td>
+                                            {{if eq .ObjectCount -1}}
+                                            <span class="text-muted">Calculating...</span>
+                                            {{else}}
+                                            {{.ObjectCount}}
+                                            {{end}}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"
+                                                onclick="viewBucket('{{.Name}}')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            {{if $.permissions.canManagePolicies}}
+                                            <button class="btn btn-sm btn-outline-info me-1"
+                                                onclick="editBucketPolicy('{{.Name}}')">
+                                                <i class="fas fa-shield-alt"></i>
+                                            </button>
+                                            {{end}}
+                                            {{if $.permissions.canDeleteBuckets}}
+                                            <button class="btn btn-sm btn-outline-danger"
+                                                onclick="deleteBucket('{{.Name}}')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            {{end}}
+                                        </td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Create Bucket Modal -->
+    <div class="modal fade" id="createBucketModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Bucket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="createBucketForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="bucketName" class="form-label">Bucket Name</label>
+                            <input type="text" class="form-control" id="bucketName" name="name" required
+                                pattern="^[a-z0-9][a-z0-9\-]{1,61}[a-z0-9]$"
+                                title="Bucket name must be 3-63 characters, lowercase letters, numbers, and hyphens only">
+                            <div class="form-text">Bucket names must be unique and follow S3 naming conventions</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Bucket</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Bucket Policy Modal -->
+    <div class="modal fade" id="editPolicyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Bucket Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="editPolicyForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="bucketNameDisplay" class="form-label">Bucket Name</label>
+                            <input type="text" class="form-control" id="bucketNameDisplay" readonly>
+                            <input type="hidden" id="editPolicyBucketName" name="bucketName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bucketPolicy" class="form-label">Bucket Policy (JSON)</label>
+                            <textarea class="form-control" id="bucketPolicy" name="policy" rows="15"
+                                placeholder="No policy currently set. Enter a JSON policy or leave empty to keep no policy."></textarea>
+                            <div class="form-text">
+                                Leave empty to remove policy.
+                                <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+                                    target="_blank">
+                                    Learn about bucket policies
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="formatPolicyJSON()">
+                                <i class="fas fa-code me-1"></i>Format JSON
+                            </button>
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="addPolicyTemplate()">
+                                <i class="fas fa-plus me-1"></i>Add Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Save Policy
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Create bucket
+        document.getElementById('createBucketForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/buckets', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Close modal and reload page
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('createBucketModal'));
+                    modal.hide();
+                    location.reload();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error creating bucket: ' + error.message);
+            }
+        });
+
+        // Delete bucket
+        async function deleteBucket(bucketName) {
+            if (confirm(`Are you sure you want to delete bucket "${bucketName}"?`)) {
+                try {
+                    const response = await fetch(`/buckets/${bucketName}`, {
+                        method: 'DELETE'
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + result.error);
+                    }
+                } catch (error) {
+                    alert('Error deleting bucket: ' + error.message);
+                }
+            }
+        }
+
+        // View bucket (placeholder)
+        function viewBucket(bucketName) {
+            alert(`View bucket "${bucketName}" - Feature to be implemented`);
+        }
+
+        // Edit bucket policy
+        async function editBucketPolicy(bucketName) {
+            try {
+                // Set bucket name in modal
+                document.getElementById('bucketNameDisplay').value = bucketName;
+                document.getElementById('editPolicyBucketName').value = bucketName;
+
+                // Load current policy
+                document.getElementById('bucketPolicy').value = 'Loading...';
+
+                const response = await fetch(`/buckets/${bucketName}/policy`);
+                let currentPolicy = '';
+
+                if (response.ok) {
+                    const result = await response.json();
+                    currentPolicy = result.policy || '';
+                    console.log(`Loaded policy for bucket '${bucketName}': length=${currentPolicy.length}`);
+                } else {
+                    console.log(`Failed to load policy for bucket '${bucketName}': ${response.status}`);
+                    // Still show the modal even if we can't load the policy
+                }
+
+                // Format and display policy
+                if (currentPolicy && currentPolicy.trim() !== '') {
+                    try {
+                        const formatted = JSON.stringify(JSON.parse(currentPolicy), null, 2);
+                        document.getElementById('bucketPolicy').value = formatted;
+                        console.log(`Formatted policy for bucket '${bucketName}'`);
+                    } catch (e) {
+                        console.log(`Policy formatting failed for bucket '${bucketName}', using raw policy`);
+                        document.getElementById('bucketPolicy').value = currentPolicy;
+                    }
+                } else {
+                    console.log(`No policy found for bucket '${bucketName}', showing empty editor`);
+                    document.getElementById('bucketPolicy').value = '';
+                    document.getElementById('bucketPolicy').placeholder = 'No policy currently set. Enter a JSON policy or leave empty to keep no policy.';
+                }
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('editPolicyModal'));
+                modal.show();
+
+            } catch (error) {
+                alert('Error loading bucket policy: ' + error.message);
+            }
+        }
+
+        // Format policy JSON
+        function formatPolicyJSON() {
+            const textarea = document.getElementById('bucketPolicy');
+            const policy = textarea.value.trim();
+
+            if (!policy) return;
+
+            try {
+                const formatted = JSON.stringify(JSON.parse(policy), null, 2);
+                textarea.value = formatted;
+            } catch (error) {
+                alert('Invalid JSON format');
+            }
+        }
+
+        // Add policy template
+        function addPolicyTemplate() {
+            const bucketName = document.getElementById('editPolicyBucketName').value;
+            const template = {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": "*",
+                        "Action": [
+                            "s3:GetObject"
+                        ],
+                        "Resource": [
+                            `arn:aws:s3:::${bucketName}/*`
+                        ]
+                    }
+                ]
+            };
+
+            const formatted = JSON.stringify(template, null, 2);
+            document.getElementById('bucketPolicy').value = formatted;
+        }
+
+        // Save bucket policy
+        document.getElementById('editPolicyForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const bucketName = document.getElementById('editPolicyBucketName').value;
+            const policy = document.getElementById('bucketPolicy').value.trim();
+
+            try {
+                // Validate JSON if policy is provided
+                if (policy) {
+                    JSON.parse(policy);
+                }
+
+                const response = await fetch(`/buckets/${bucketName}/policy`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ policy: policy })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Close modal and show success
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editPolicyModal'));
+                    modal.hide();
+                    alert('Bucket policy updated successfully');
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error saving bucket policy: ' + error.message);
+            }
+        });
+    </script>
+</body>
+
+</html>
