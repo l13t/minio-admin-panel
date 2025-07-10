@@ -245,14 +245,14 @@
   "groups.group_name_help": {
     "other": "Назви груп мають бути унікальними та описовими"
   },
-  "groups.group_updated": {
-    "other": "Групу успішно оновлено"
-  },
   "groups.members": {
     "other": "Учасники"
   },
   "groups.policy": {
     "other": "Політика"
+  },
+  "groups.group_updated": {
+    "other": "Групу успішно оновлено"
   },
   "groups.remove_members": {
     "other": "Видалити учасників"
@@ -538,9 +538,6 @@
   },
   "settings.title": {
     "other": "Налаштування"
-  },
-  "settings.ukrainian": {
-    "other": "Українська"
   },
   "settings.upcoming_audit_log": {
     "other": "Аудит логування та звітність"
