@@ -186,7 +186,7 @@
     "other": "Ласкаво просимо до панелі адміністрування MinIO"
   },
   "errors.connection_failed": {
-    "other": "Не вдалося підключитися"
+    "other": "Підключення не встановлено"
   },
   "errors.forbidden": {
     "other": "Доступ заборонено"
@@ -453,7 +453,7 @@
     "other": "Дата збірки"
   },
   "settings.connected": {
-    "other": "Підключено"
+    "other": "З'єднано"
   },
   "settings.connection_info_note": {
     "other": "Налаштування з'єднання з MinIO конфігуруються через змінні середовища. Будь ласка, зверніться до файлу .env.example для доступних параметрів конфігурації."
@@ -507,7 +507,7 @@
     "other": "Мова"
   },
   "language.english": {
-    "other": "English"
+    "other": "Англійська"
   },
   "language.ukrainian": {
     "other": "Українська"
