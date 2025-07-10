@@ -1,0 +1,51 @@
+# Development GoReleaser config for local builds
+version: 2
+
+project_name: minio-admin-panel
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: "minio-admin-panel-dev"
+    main: ./main.go
+    binary: minio-admin-panel
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+      - -X main.builtBy=dev
+
+archives:
+  - id: dev
+    name_template: >-
+      {{ .ProjectName }}_dev_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - web/**/*
+      - .env.example
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-dev"
+
+changelog:
+  disable: true

@@ -9,13 +9,31 @@ import (
 
 	"minio-admin-panel/internal/config"
 	"minio-admin-panel/internal/handlers"
+	"minio-admin-panel/internal/i18n"
 	"minio-admin-panel/internal/middleware"
 	"minio-admin-panel/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
 
+// Build-time variables set by GoReleaser
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+	builtBy = "unknown"
+)
+
 func main() {
+	// Print version information
+	log.Printf("MinIO Admin Panel %s (commit: %s, built: %s by %s)", version, commit, date, builtBy)
+
+	// Initialize internationalization
+	i18n.Init("en") // Default language: English
+	if err := i18n.LoadDir("translations/i18n"); err != nil {
+		log.Printf("Warning: Failed to load translations: %v", err)
+	}
+
 	// Load configuration
 	cfg := config.Load()
 
@@ -28,20 +46,33 @@ func main() {
 	userHandler := handlers.NewUserHandler(minioService)
 	policyHandler := handlers.NewPolicyHandler(minioService)
 	groupHandler := handlers.NewGroupHandler(minioService)
+	serviceAccountHandler := handlers.NewServiceAccountHandler(minioService)
 	apiHandler := handlers.NewAPIHandler(minioService)
+	settingsHandler := handlers.NewSettingsHandler(minioService, version, commit, date, builtBy)
 
 	// Setup Gin router
 	r := gin.Default()
 
+	// Add language middleware
+	r.Use(middleware.LanguageMiddleware())
+
 	// Load HTML templates with custom functions
 	r.SetFuncMap(template.FuncMap{
 		"formatBytes": formatBytes,
+		"t": func(key string) string {
+			// This will be overridden in template execution context
+			return key
+		},
+		"tWithParams": func(key string, params ...interface{}) string {
+			// This will be overridden in template execution context
+			return key
+		},
 	})
 	r.LoadHTMLGlob("web/templates/*")
 	r.Static("/static", "./web/static")
 
 	// Routes
-	setupRoutes(r, authHandler, bucketHandler, userHandler, policyHandler, groupHandler, apiHandler)
+	setupRoutes(r, authHandler, bucketHandler, userHandler, policyHandler, groupHandler, serviceAccountHandler, apiHandler, settingsHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -52,7 +83,12 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }
 
-func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler *handlers.BucketHandler, userHandler *handlers.UserHandler, policyHandler *handlers.PolicyHandler, groupHandler *handlers.GroupHandler, apiHandler *handlers.APIHandler) {
+func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler *handlers.BucketHandler, userHandler *handlers.UserHandler, policyHandler *handlers.PolicyHandler, groupHandler *handlers.GroupHandler, serviceAccountHandler *handlers.ServiceAccountHandler, apiHandler *handlers.APIHandler, settingsHandler *handlers.SettingsHandler) {
+	// Health check endpoint
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok", "version": version})
+	})
+
 	// Auth routes
 	r.GET("/", authHandler.LoginPage)
 	r.POST("/login", authHandler.Login)
@@ -68,7 +104,8 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			username, _ := c.Get("username")
 			policyName, _ := c.Get("policy_name")
 
-			c.HTML(http.StatusOK, "dashboard.html", gin.H{
+			// Use the helper for consistent translation handling
+			handlers.RenderWithTranslations(c, "dashboard.html", gin.H{
 				"title":       "MinIO Admin Panel",
 				"username":    username,
 				"policy_name": policyName,
@@ -116,6 +153,16 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			groupRoutes.PUT("/:name/policy", groupHandler.SetGroupPolicy)
 		}
 
+		// Service Account management - require admin permissions
+		serviceAccountRoutes := protected.Group("/service-accounts")
+		serviceAccountRoutes.Use(middleware.RequirePermission("canManageUsers"))
+		{
+			serviceAccountRoutes.GET("", serviceAccountHandler.ListServiceAccounts)
+			serviceAccountRoutes.POST("", serviceAccountHandler.CreateServiceAccount)
+			serviceAccountRoutes.GET("/:accessKey", serviceAccountHandler.GetServiceAccountInfo)
+			serviceAccountRoutes.DELETE("/:accessKey", serviceAccountHandler.DeleteServiceAccount)
+		}
+
 		// Policy management - require admin permissions
 		policyRoutes := protected.Group("/policies")
 		policyRoutes.Use(middleware.RequirePermission("canManageUsers"))
@@ -126,6 +173,9 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			policyRoutes.PUT("/:name", policyHandler.CreateOrUpdatePolicy)
 			policyRoutes.DELETE("/:name", policyHandler.DeletePolicy)
 		}
+
+		// Settings - require admin permissions
+		protected.GET("/settings", middleware.RequirePermission("isAdmin"), settingsHandler.ShowSettings)
 
 		// API routes for AJAX
 		api := protected.Group("/api")
@@ -139,6 +189,10 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 				c.Request.Header.Set("Accept", "application/json")
 				groupHandler.ListGroups(c)
 			})
+			api.GET("/service-accounts", serviceAccountHandler.ListServiceAccounts)
+			api.POST("/service-accounts", serviceAccountHandler.CreateServiceAccount)
+			api.GET("/service-accounts/:accessKey", serviceAccountHandler.GetServiceAccountInfo)
+			api.DELETE("/service-accounts/:accessKey", serviceAccountHandler.DeleteServiceAccount)
 		}
 	}
 }

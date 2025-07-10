@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.title}}</title>
+    <title>{{t .title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
         .sidebar {
             min-height: 100vh;
@@ -59,37 +60,37 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="/dashboard">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                <i class="fas fa-tachometer-alt me-2"></i>{{t "navigation.dashboard"}}
                             </a>
                         </li>
                         {{if .permissions.canListBuckets}}
                         <li class="nav-item">
                             <a class="nav-link" href="/buckets">
-                                <i class="fas fa-bucket me-2"></i>Buckets
+                                <i class="fas fa-database me-2"></i>{{t "navigation.buckets"}}
                             </a>
                         </li>
                         {{end}}
                         {{if .permissions.canManageUsers}}
                         <li class="nav-item">
                             <a class="nav-link" href="/users">
-                                <i class="fas fa-users me-2"></i>Users
+                                <i class="fas fa-users me-2"></i>{{t "navigation.users"}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/groups">
-                                <i class="fas fa-layer-group me-2"></i>Groups
+                                <i class="fas fa-layer-group me-2"></i>{{t "navigation.groups"}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/policies">
-                                <i class="fas fa-shield-alt me-2"></i>Policies
+                                <i class="fas fa-shield-alt me-2"></i>{{t "navigation.policies"}}
                             </a>
                         </li>
                         {{end}}
                         {{if .permissions.isAdmin}}
                         <li class="nav-item">
                             <a class="nav-link" href="/settings">
-                                <i class="fas fa-cogs me-2"></i>Settings
+                                <i class="fas fa-cogs me-2"></i>{{t "navigation.settings"}}
                             </a>
                         </li>
                         {{end}}
@@ -98,7 +99,7 @@
                     <!-- User Info -->
                     <div class="mt-3 pt-3 border-top border-secondary">
                         <div class="text-center text-light">
-                            <div class="small">Logged in as:</div>
+                            <div class="small">{{t "common.logged_in_as"}}:</div>
                             <div class="fw-bold">{{.username}}</div>
                             <div class="badge bg-primary mt-1">{{.policy_name}}</div>
                         </div>
@@ -107,7 +108,7 @@
                     <div class="mt-auto pt-4">
                         <form action="/logout" method="POST">
                             <button type="submit" class="btn btn-outline-light w-100">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                <i class="fas fa-sign-out-alt me-2"></i>{{t "logout"}}
                             </button>
                         </form>
                     </div>
@@ -115,10 +116,16 @@
             </nav>
 
             <!-- Main content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content" id="main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">{{t "dashboard.title"}}</h1>
+                    <!-- Language Switcher -->
+                    <!-- prettier-ignore-start -->
+                    <div class="btn-group" role="group">
+                        <a href="?lang=en" class='btn btn-outline-secondary btn-sm {{if eq .language "en"}}active{{end}}'>EN</a>
+                        <a href="?lang=uk" class='btn btn-outline-secondary btn-sm {{if eq .language "uk"}}active{{end}}'>UK</a>
+                    </div>
+                    <!-- prettier-ignore-end -->
                 </div>
 
                 <!-- Metrics Cards -->
@@ -128,7 +135,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total Buckets</div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">{{t
+                                            "dashboard.total_buckets"}}</div>
                                         <div class="h5 mb-0 font-weight-bold" id="total-buckets">
                                             <i class="fas fa-spinner fa-spin"></i>
                                         </div>
@@ -146,7 +154,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total Users</div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">{{t
+                                            "dashboard.total_users"}}</div>
                                         <div class="h5 mb-0 font-weight-bold" id="total-users">
                                             <i class="fas fa-spinner fa-spin"></i>
                                         </div>
@@ -164,7 +173,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Server Status</div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">{{t
+                                            "dashboard.server_info"}}</div>
                                         <div class="h5 mb-0 font-weight-bold">
                                             <i class="fas fa-circle text-success"></i> Online
                                         </div>
@@ -182,9 +192,10 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Storage Used</div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">{{t
+                                            "dashboard.storage_usage"}}</div>
                                         <div class="h5 mb-0 font-weight-bold" id="storage-used">
-                                            <i class="fas fa-spinner fa-spin"></i> Loading...
+                                            <i class="fas fa-spinner fa-spin"></i> {{t "common.loading"}}
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -201,30 +212,30 @@
                     <div class="col-lg-6 mb-4">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="mb-0">Quick Actions</h5>
+                                <h5 class="mb-0">{{t "dashboard.quick_actions"}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="d-grid gap-2">
                                     {{if .permissions.canCreateBuckets}}
                                     <a href="/buckets" class="btn btn-outline-primary">
-                                        <i class="fas fa-plus me-2"></i>Create New Bucket
+                                        <i class="fas fa-plus me-2"></i>{{t "buckets.create_bucket"}}
                                     </a>
                                     {{end}}
                                     {{if .permissions.canManageUsers}}
                                     <a href="/users" class="btn btn-outline-success">
-                                        <i class="fas fa-user-plus me-2"></i>Add New User
+                                        <i class="fas fa-user-plus me-2"></i>{{t "users.create_user"}}
                                     </a>
                                     {{end}}
                                     {{if .permissions.canListBuckets}}
                                     <a href="/buckets" class="btn btn-outline-info">
-                                        <i class="fas fa-list me-2"></i>View Buckets
+                                        <i class="fas fa-list me-2"></i>{{t "dashboard.view_buckets"}}
                                     </a>
                                     {{end}}
                                     {{if not .permissions.canCreateBuckets}}{{if not .permissions.canManageUsers}}{{if
                                     not .permissions.canListBuckets}}
                                     <div class="text-muted text-center py-3">
                                         <i class="fas fa-info-circle me-2"></i>
-                                        No quick actions available with current permissions
+                                        {{t "dashboard.no_actions_available"}}
                                     </div>
                                     {{end}}{{end}}{{end}}
                                 </div>
@@ -235,11 +246,11 @@
                     <div class="col-lg-6 mb-4">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="mb-0">Recent Activity</h5>
+                                <h5 class="mb-0">{{t "dashboard.recent_activity"}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="text-muted">
-                                    <p><i class="fas fa-info-circle me-2"></i>No recent activities</p>
+                                    <p><i class="fas fa-info-circle me-2"></i>{{t "dashboard.no_recent_activities"}}</p>
                                 </div>
                             </div>
                         </div>

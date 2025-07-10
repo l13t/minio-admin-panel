@@ -28,8 +28,8 @@ func (h *AuthHandler) LoginPage(c *gin.Context) {
 		return
 	}
 
-	c.HTML(http.StatusOK, "login.html", gin.H{
-		"title": "MinIO Admin Panel - Login",
+	RenderWithTranslations(c, "login.html", gin.H{
+		"title": "login.title",
 	})
 }
 
@@ -42,9 +42,9 @@ func (h *AuthHandler) Login(c *gin.Context) {
 
 	if err := c.ShouldBind(&loginData); err != nil {
 		log.Printf("[DEBUG] Login form validation failed: %v", err)
-		c.HTML(http.StatusBadRequest, "login.html", gin.H{
-			"title": "MinIO Admin Panel - Login",
-			"error": "Please provide both username and password",
+		RenderWithTranslations(c, "login.html", gin.H{
+			"title": "login.title",
+			"error": "login.error.missing_credentials",
 		})
 		return
 	}
@@ -55,9 +55,9 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	userInfo, err := h.minioService.ValidateCredentials(loginData.Username, loginData.Password)
 	if err != nil {
 		log.Printf("[DEBUG] Login failed for user '%s': %v", loginData.Username, err)
-		c.HTML(http.StatusUnauthorized, "login.html", gin.H{
-			"title": "MinIO Admin Panel - Login",
-			"error": "Invalid username or password",
+		RenderWithTranslations(c, "login.html", gin.H{
+			"title": "login.title",
+			"error": "login.error.invalid_credentials",
 		})
 		return
 	}
@@ -72,9 +72,9 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	token, err := middleware.GenerateJWTWithUserInfo(loginData.Username, loginData.Password, userInfo.PolicyName, permissions)
 	if err != nil {
 		log.Printf("[DEBUG] JWT token generation failed for user '%s': %v", loginData.Username, err)
-		c.HTML(http.StatusInternalServerError, "login.html", gin.H{
-			"title": "MinIO Admin Panel - Login",
-			"error": "Failed to generate session token",
+		RenderWithTranslations(c, "login.html", gin.H{
+			"title": "login.title",
+			"error": "login.error.token_generation",
 		})
 		return
 	}

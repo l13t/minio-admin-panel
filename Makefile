@@ -64,3 +64,26 @@ setup:
 # Validate configuration
 validate:
 	go run cmd/validate/main.go
+
+# GoReleaser commands
+goreleaser-check:
+	goreleaser check
+
+goreleaser-snapshot:
+	goreleaser release --snapshot --clean --config .goreleaser-dev.yml
+
+goreleaser-local:
+	goreleaser build --single-target --clean --snapshot --config .goreleaser-dev.yml
+
+# Release commands
+release-dry-run:
+	goreleaser release --skip=publish --clean
+
+release:
+	goreleaser release --clean
+
+# Version info
+version:
+	@echo "Version: $(shell git describe --tags --always --dirty)"
+	@echo "Commit: $(shell git rev-parse HEAD)"
+	@echo "Date: $(shell date -u +%Y-%m-%dT%H:%M:%SZ)"

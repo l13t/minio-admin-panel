@@ -67,8 +67,8 @@ func (h *GroupHandler) ListGroups(c *gin.Context) {
 	permissions, _ := c.Get("permissions")
 	policyName, _ := c.Get("policy_name")
 
-	c.HTML(http.StatusOK, "groups.html", gin.H{
-		"title":       "Groups",
+	RenderWithTranslations(c, "groups.html", gin.H{
+		"title":       "groups.title",
 		"groups":      groups,
 		"permissions": permissions,
 		"username":    username,

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.title}}</title>
+    <title>{{t .title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -86,36 +86,36 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                <i class="fas fa-tachometer-alt me-2"></i>{{t "navigation.dashboard"}}
                             </a>
                         </li>
                         {{if .permissions.canListBuckets}}
                         <li class="nav-item">
                             <a class="nav-link" href="/buckets">
-                                <i class="fas fa-bucket me-2"></i>Buckets
+                                <i class="fas fa-database me-2"></i>{{t "navigation.buckets"}}
                             </a>
                         </li>
                         {{end}}
                         {{if .permissions.canManageUsers}}
                         <li class="nav-item">
                             <a class="nav-link active" href="/users">
-                                <i class="fas fa-users me-2"></i>Users
+                                <i class="fas fa-users me-2"></i>{{t "navigation.users"}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/groups">
-                                <i class="fas fa-layer-group me-2"></i>Groups
+                                <i class="fas fa-layer-group me-2"></i>{{t "navigation.groups"}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/policies">
-                                <i class="fas fa-shield-alt me-2"></i>Policies
+                                <i class="fas fa-shield-alt me-2"></i>{{t "navigation.policies"}}
                             </a>
                         </li>
                         {{end}}
                         <li class="nav-item">
                             <a class="nav-link" href="/settings">
-                                <i class="fas fa-cogs me-2"></i>Settings
+                                <i class="fas fa-cogs me-2"></i>{{t "navigation.settings"}}
                             </a>
                         </li>
                     </ul>
@@ -141,19 +141,17 @@
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Access Keys & Users</h1>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">{{t "users.title"}}</h1>
                     <div>
                         <button type="button" class="btn btn-outline-info me-2" onclick="exportAccessKeys()">
-                            <i class="fas fa-download me-2"></i>Export Keys
+                            <i class="fas fa-download me-2"></i>{{t "common.export"}}
                         </button>
                         <button type="button" class="btn btn-outline-secondary me-2" onclick="toggleView()">
                             <i class="fas fa-eye me-2"></i>Toggle View
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#createUserModal">
-                            <i class="fas fa-user-plus me-2"></i>Create User
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                            <i class="fas fa-user-plus me-2"></i>{{t "users.create_user"}}
                         </button>
                     </div>
                 </div>
@@ -186,8 +184,7 @@
                                             <div class="d-flex align-items-center">
                                                 <i class="fas fa-key me-2 text-primary"></i>
                                                 <code class="user-access-key me-2">{{.AccessKey}}</code>
-                                                <button class="btn btn-sm btn-outline-secondary"
-                                                    onclick="copyAccessKey('{{.AccessKey}}')" title="Copy Access Key">
+                                                <button class="btn btn-sm btn-outline-secondary" onclick="copyAccessKey('{{.AccessKey}}')" title="Copy Access Key">
                                                     <i class="fas fa-copy"></i>
                                                 </button>
                                             </div>
@@ -219,37 +216,31 @@
                                         </td>
                                         <td class="user-actions">
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-sm btn-outline-secondary"
-                                                    onclick="viewUserDetails('{{.AccessKey}}')" title="View Details">
+                                                <button class="btn btn-sm btn-outline-secondary" onclick="viewUserDetails('{{.AccessKey}}')" title="View Details">
                                                     <i class="fas fa-info-circle"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-info"
-                                                    onclick="editUser('{{.AccessKey}}')" title="Edit Credentials">
+                                                <button class="btn btn-sm btn-outline-info" onclick="editUser('{{.AccessKey}}')" title="Edit Credentials">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-primary"
-                                                    onclick="editUserPolicy('{{.AccessKey}}')" title="Edit Policy">
+                                                <button class="btn btn-sm btn-outline-primary" onclick="editUserPolicy('{{.AccessKey}}')" title="Edit Policy">
                                                     <i class="fas fa-shield-alt"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-warning"
-                                                    onclick="editUserGroups('{{.AccessKey}}')" title="Edit Groups">
+                                                <button class="btn btn-sm btn-outline-warning" onclick="editUserGroups('{{.AccessKey}}')" title="Edit Groups">
                                                     <i class="fas fa-layer-group"></i>
                                                 </button>
+                                                <button class="btn btn-sm btn-outline-info" onclick="manageServiceAccounts('{{.AccessKey}}')" title="Service Accounts">
+                                                    <i class="fas fa-key"></i>
+                                                </button>
                                                 {{if eq .Status "enabled"}}
-                                                <button class="btn btn-sm btn-outline-warning"
-                                                    onclick="toggleUserStatus('{{.AccessKey}}', false)"
-                                                    title="Disable User">
+                                                <button class="btn btn-sm btn-outline-warning" onclick="toggleUserStatus('{{.AccessKey}}', false)" title="Disable User">
                                                     <i class="fas fa-user-slash"></i>
                                                 </button>
                                                 {{else}}
-                                                <button class="btn btn-sm btn-outline-success"
-                                                    onclick="toggleUserStatus('{{.AccessKey}}', true)"
-                                                    title="Enable User">
+                                                <button class="btn btn-sm btn-outline-success" onclick="toggleUserStatus('{{.AccessKey}}', true)" title="Enable User">
                                                     <i class="fas fa-user-check"></i>
                                                 </button>
                                                 {{end}}
-                                                <button class="btn btn-sm btn-outline-danger"
-                                                    onclick="deleteUser('{{.AccessKey}}')" title="Delete User">
+                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('{{.AccessKey}}')" title="Delete User">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
@@ -277,14 +268,12 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="userAccessKey" class="form-label">Access Key</label>
-                            <input type="text" class="form-control" id="userAccessKey" name="access_key" required
-                                minlength="3" maxlength="20">
+                            <input type="text" class="form-control" id="userAccessKey" name="access_key" required minlength="3" maxlength="20">
                             <div class="form-text">3-20 characters, alphanumeric</div>
                         </div>
                         <div class="mb-3">
                             <label for="userSecretKey" class="form-label">Secret Key</label>
-                            <input type="password" class="form-control" id="userSecretKey" name="secret_key" required
-                                minlength="8">
+                            <input type="password" class="form-control" id="userSecretKey" name="secret_key" required minlength="8">
                             <div class="form-text">Minimum 8 characters</div>
                         </div>
                         <div class="mb-3">
@@ -384,9 +373,7 @@
                                     <label for="editUserAccessKeyDisplay" class="form-label">Access Key</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="editUserAccessKeyDisplay" readonly>
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            onclick="copyToClipboard('editUserAccessKeyDisplay')"
-                                            title="Copy Access Key">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('editUserAccessKeyDisplay')" title="Copy Access Key">
                                             <i class="fas fa-copy"></i>
                                         </button>
                                     </div>
@@ -394,11 +381,8 @@
                                 <div class="mb-3">
                                     <label for="editUserCurrentSecretKey" class="form-label">Current Secret Key</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="editUserCurrentSecretKey"
-                                            readonly>
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            onclick="toggleSecretKeyVisibility('editUserCurrentSecretKey')"
-                                            title="Toggle Visibility">
+                                        <input type="password" class="form-control" id="editUserCurrentSecretKey" readonly>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserCurrentSecretKey')" title="Toggle Visibility">
                                             <i class="fas fa-eye" id="editUserCurrentSecretKeyIcon"></i>
                                         </button>
                                     </div>
@@ -423,15 +407,11 @@
                                 <div class="mb-3">
                                     <label for="editUserSecretKey" class="form-label">New Secret Key</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="editUserSecretKey"
-                                            name="secret_key" minlength="8" placeholder="Enter new secret key">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            onclick="toggleSecretKeyVisibility('editUserSecretKey')"
-                                            title="Toggle Visibility">
+                                        <input type="password" class="form-control" id="editUserSecretKey" name="secret_key" minlength="8" placeholder="Enter new secret key">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserSecretKey')" title="Toggle Visibility">
                                             <i class="fas fa-eye" id="editUserSecretKeyIcon"></i>
                                         </button>
-                                        <button class="btn btn-outline-info" type="button" onclick="generateSecretKey()"
-                                            title="Generate Random Secret Key">
+                                        <button class="btn btn-outline-info" type="button" onclick="generateSecretKey()" title="Generate Random Secret Key">
                                             <i class="fas fa-random"></i>
                                         </button>
                                     </div>
@@ -442,9 +422,7 @@
                                     <label for="editConfirmSecretKey" class="form-label">Confirm New Secret Key</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="editConfirmSecretKey">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            onclick="toggleSecretKeyVisibility('editConfirmSecretKey')"
-                                            title="Toggle Visibility">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editConfirmSecretKey')" title="Toggle Visibility">
                                             <i class="fas fa-eye" id="editConfirmSecretKeyIcon"></i>
                                         </button>
                                     </div>
@@ -531,6 +509,81 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Accounts Modal -->
+    <div class="modal fade" id="serviceAccountsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Service Accounts for <span id="serviceAccountUsername"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary" onclick="showCreateServiceAccountForm()">
+                            <i class="fas fa-plus me-1"></i>Create Service Account
+                        </button>
+                    </div>
+
+                    <!-- Create Service Account Form (initially hidden) -->
+                    <div id="createServiceAccountForm" class="card mb-3" style="display: none;">
+                        <div class="card-header">
+                            <h6 class="mb-0">Create New Service Account</h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="createServiceAccountFormElement">
+                                <div class="mb-3">
+                                    <label for="serviceAccountName" class="form-label">Name (optional)</label>
+                                    <input type="text" class="form-control" id="serviceAccountName" name="name" placeholder="Service account name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="serviceAccountDescription" class="form-label">Description
+                                        (optional)</label>
+                                    <textarea class="form-control" id="serviceAccountDescription" name="description" rows="2" placeholder="Service account description"></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-plus me-1"></i>Create
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="hideCreateServiceAccountForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Service Account Credentials Display (initially hidden) -->
+                    <div id="serviceAccountCredentials" class="alert alert-success" style="display: none;">
+                        <h6><i class="fas fa-key me-2"></i>Service Account Created Successfully</h6>
+                        <p class="mb-2"><strong>Access Key:</strong> <code id="newServiceAccountAccessKey"></code>
+                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard(document.getElementById('newServiceAccountAccessKey').textContent)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </p>
+                        <p class="mb-2"><strong>Secret Key:</strong> <code id="newServiceAccountSecretKey"></code>
+                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard(document.getElementById('newServiceAccountSecretKey').textContent)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </p>
+                        <p class="mb-0 text-warning"><i class="fas fa-exclamation-triangle me-1"></i><strong>Important:</strong> Save these
+                            credentials now. The secret key will not be shown again.</p>
+                    </div>
+
+                    <!-- Service Accounts List -->
+                    <div id="serviceAccountsList">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading service accounts...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1130,76 +1183,198 @@
             }
         });
 
-        // Helper function to toggle secret key visibility
-        function toggleSecretKeyVisibility(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(inputId + 'Icon');
+        // Service Account Management Functions
+        let currentServiceAccountUser = '';
 
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye';
+        async function manageServiceAccounts(accessKey) {
+            currentServiceAccountUser = accessKey;
+            document.getElementById('serviceAccountUsername').textContent = accessKey;
+
+            const modal = new bootstrap.Modal(document.getElementById('serviceAccountsModal'));
+            modal.show();
+
+            await loadServiceAccounts(accessKey);
+        }
+
+        async function loadServiceAccounts(accessKey) {
+            const serviceAccountsList = document.getElementById('serviceAccountsList');
+            serviceAccountsList.innerHTML = `
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading service accounts...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`/api/service-accounts?user=${encodeURIComponent(accessKey)}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const serviceAccounts = data.service_accounts || [];
+
+                    if (serviceAccounts.length === 0) {
+                        serviceAccountsList.innerHTML = `
+                            <div class="text-center text-muted">
+                                <i class="fas fa-key fa-3x mb-3"></i>
+                                <p>No service accounts found for this user.</p>
+                            </div>
+                        `;
+                    } else {
+                        let html = '<div class="list-group">';
+                        serviceAccounts.forEach(sa => {
+                            const statusClass = sa.status === 'enabled' ? 'text-success' : 'text-danger';
+                            const statusIcon = sa.status === 'enabled' ? 'fas fa-check-circle' : 'fas fa-times-circle';
+
+                            html += `
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                <code>${sa.access_key}</code>
+                                                <span class="${statusClass} ms-2">
+                                                    <i class="${statusIcon}"></i> ${sa.status}
+                                                </span>
+                                            </h6>
+                                            ${sa.name ? `<p class="mb-1"><strong>Name:</strong> ${sa.name}</p>` : ''}
+                                            ${sa.description ? `<p class="mb-1"><strong>Description:</strong> ${sa.description}</p>` : ''}
+                                            <small class="text-muted">Parent User: ${sa.parent_user}</small>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('${sa.access_key}')" title="Copy Access Key">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteServiceAccount('${sa.access_key}')" title="Delete Service Account">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                        serviceAccountsList.innerHTML = html;
+                    }
+                } else {
+                    serviceAccountsList.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Failed to load service accounts: ${response.statusText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading service accounts:', error);
+                serviceAccountsList.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Error loading service accounts: ${error.message}
+                    </div>
+                `;
             }
         }
 
-        // Helper function to copy text to clipboard
-        async function copyToClipboard(inputId) {
-            const input = document.getElementById(inputId);
-            try {
-                await navigator.clipboard.writeText(input.value);
+        function showCreateServiceAccountForm() {
+            document.getElementById('createServiceAccountForm').style.display = 'block';
+            document.getElementById('serviceAccountCredentials').style.display = 'none';
+        }
 
-                // Visual feedback
+        function hideCreateServiceAccountForm() {
+            document.getElementById('createServiceAccountForm').style.display = 'none';
+            document.getElementById('createServiceAccountFormElement').reset();
+        }
+
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                // Show temporary feedback
                 const button = event.target.closest('button');
                 const icon = button.querySelector('i');
                 const originalClass = icon.className;
 
-                icon.className = 'fas fa-check text-success';
+                icon.className = 'fas fa-check';
+                button.classList.add('btn-success');
+                button.classList.remove('btn-outline-secondary');
+
                 setTimeout(() => {
                     icon.className = originalClass;
-                }, 1000);
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-outline-secondary');
+                }, 1500);
             } catch (error) {
                 console.error('Failed to copy to clipboard:', error);
                 alert('Failed to copy to clipboard');
             }
         }
 
-        // Helper function to generate random secret key
-        function generateSecretKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let secretKey = '';
-            for (let i = 0; i < 16; i++) {
-                secretKey += chars.charAt(Math.floor(Math.random() * chars.length));
+        // Handle create service account form submission
+        document.getElementById('createServiceAccountFormElement').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = {
+                target_user: currentServiceAccountUser,
+                name: formData.get('name') || '',
+                description: formData.get('description') || ''
+            };
+
+            try {
+                const response = await fetch('/api/service-accounts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const serviceAccount = result.service_account;
+
+                    // Show credentials
+                    document.getElementById('newServiceAccountAccessKey').textContent = serviceAccount.access_key;
+                    document.getElementById('newServiceAccountSecretKey').textContent = serviceAccount.secret_key;
+                    document.getElementById('serviceAccountCredentials').style.display = 'block';
+
+                    // Hide form
+                    hideCreateServiceAccountForm();
+
+                    // Reload service accounts list
+                    await loadServiceAccounts(currentServiceAccountUser);
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to create service account: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error creating service account:', error);
+                alert('Error creating service account: ' + error.message);
+            }
+        });
+
+        async function deleteServiceAccount(accessKey) {
+            if (!confirm(`Are you sure you want to delete service account "${accessKey}"? This action cannot be undone.`)) {
+                return;
             }
 
-            document.getElementById('editUserSecretKey').value = secretKey;
-            document.getElementById('editConfirmSecretKey').value = secretKey;
+            try {
+                const response = await fetch(`/api/service-accounts/${encodeURIComponent(accessKey)}`, {
+                    method: 'DELETE'
+                });
 
-            // Show the generated key temporarily
-            const input = document.getElementById('editUserSecretKey');
-            const icon = document.getElementById('editUserSecretKeyIcon');
-            const confirmInput = document.getElementById('editConfirmSecretKey');
-            const confirmIcon = document.getElementById('editConfirmSecretKeyIcon');
-
-            input.type = 'text';
-            confirmInput.type = 'text';
-            icon.className = 'fas fa-eye-slash';
-            confirmIcon.className = 'fas fa-eye-slash';
-
-            // Hide after 3 seconds
-            setTimeout(() => {
-                input.type = 'password';
-                confirmInput.type = 'password';
-                icon.className = 'fas fa-eye';
-                confirmIcon.className = 'fas fa-eye';
-            }, 3000);
+                if (response.ok) {
+                    // Reload service accounts list
+                    await loadServiceAccounts(currentServiceAccountUser);
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to delete service account: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error deleting service account:', error);
+                alert('Error deleting service account: ' + error.message);
+            }
         }
 
-        // Load policies when page loads
-        document.addEventListener('DOMContentLoaded', function () {
-            loadPolicies();
-        });
+        // ...existing code...
     </script>
 </body>
 
