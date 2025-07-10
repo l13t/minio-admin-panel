@@ -290,6 +290,9 @@ To access the admin panel, users must have MinIO admin privileges, which means t
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fl13t%2Fminio-admin-panel.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fl13t%2Fminio-admin-panel?ref=badge_large)
+
 ## Acknowledgments
 
 - [MinIO](https://min.io/) - High Performance Object Storage
@@ -297,3 +300,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Bootstrap](https://getbootstrap.com/) - CSS Framework
 
 [![Crowdin](https://badges.crowdin.net/minio-admin-panel/localized.svg)](https://crowdin.com)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fl13t%2Fminio-admin-panel.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fl13t%2Fminio-admin-panel?ref=badge_shield)
