@@ -1,0 +1,635 @@
+{
+  "app_name": {
+    "other": "MinIO Admin Panel"
+  },
+  "buckets.actions": {
+    "other": "Actions"
+  },
+  "buckets.bucket_created": {
+    "other": "Bucket created successfully"
+  },
+  "buckets.bucket_deleted": {
+    "other": "Bucket deleted successfully"
+  },
+  "buckets.bucket_name": {
+    "other": "Bucket Name"
+  },
+  "buckets.confirm_delete": {
+    "other": "Are you sure you want to delete this bucket?"
+  },
+  "buckets.create_bucket": {
+    "other": "Create Bucket"
+  },
+  "buckets.creation_date": {
+    "other": "Creation Date"
+  },
+  "buckets.delete": {
+    "other": "Delete"
+  },
+  "buckets.objects": {
+    "other": "Objects"
+  },
+  "buckets.policy": {
+    "other": "Policy"
+  },
+  "buckets.set_policy": {
+    "other": "Set Policy"
+  },
+  "buckets.size": {
+    "other": "Size"
+  },
+  "buckets.title": {
+    "other": "Bucket Management"
+  },
+  "buckets.view_policy": {
+    "other": "View Policy"
+  },
+  "common.back": {
+    "other": "Back"
+  },
+  "common.cancel": {
+    "other": "Cancel"
+  },
+  "common.clear": {
+    "other": "Clear"
+  },
+  "common.close": {
+    "other": "Close"
+  },
+  "common.confirm": {
+    "other": "Confirm"
+  },
+  "common.create": {
+    "other": "Create"
+  },
+  "common.delete": {
+    "other": "Delete"
+  },
+  "common.description": {
+    "other": "Description"
+  },
+  "common.deselect_all": {
+    "other": "Deselect All"
+  },
+  "common.download": {
+    "other": "Download"
+  },
+  "common.edit": {
+    "other": "Edit"
+  },
+  "common.error": {
+    "other": "Error"
+  },
+  "common.export": {
+    "other": "Export"
+  },
+  "common.filter": {
+    "other": "Filter"
+  },
+  "common.import": {
+    "other": "Import"
+  },
+  "common.info": {
+    "other": "Information"
+  },
+  "common.loading": {
+    "other": "Loading..."
+  },
+  "common.logged_in_as": {
+    "other": "Logged in as"
+  },
+  "common.name": {
+    "other": "Name"
+  },
+  "common.next": {
+    "other": "Next"
+  },
+  "common.no": {
+    "other": "No"
+  },
+  "common.ok": {
+    "other": "OK"
+  },
+  "common.previous": {
+    "other": "Previous"
+  },
+  "common.refresh": {
+    "other": "Refresh"
+  },
+  "common.reset": {
+    "other": "Reset"
+  },
+  "common.save": {
+    "other": "Save"
+  },
+  "common.search": {
+    "other": "Search"
+  },
+  "common.select": {
+    "other": "Select"
+  },
+  "common.select_all": {
+    "other": "Select All"
+  },
+  "common.submit": {
+    "other": "Submit"
+  },
+  "common.success": {
+    "other": "Success"
+  },
+  "common.upload": {
+    "other": "Upload"
+  },
+  "common.warning": {
+    "other": "Warning"
+  },
+  "common.yes": {
+    "other": "Yes"
+  },
+  "dashboard.metrics": {
+    "other": "Metrics"
+  },
+  "dashboard.no_actions_available": {
+    "other": "No quick actions available with current permissions"
+  },
+  "dashboard.no_recent_activities": {
+    "other": "No recent activities"
+  },
+  "dashboard.quick_actions": {
+    "other": "Quick Actions"
+  },
+  "dashboard.recent_activity": {
+    "other": "Recent Activity"
+  },
+  "dashboard.server_info": {
+    "other": "Server Information"
+  },
+  "dashboard.storage_usage": {
+    "other": "Storage Usage"
+  },
+  "dashboard.title": {
+    "other": "Dashboard"
+  },
+  "dashboard.total_buckets": {
+    "other": "Total Buckets"
+  },
+  "dashboard.total_groups": {
+    "other": "Total Groups"
+  },
+  "dashboard.total_users": {
+    "other": "Total Users"
+  },
+  "dashboard.view_buckets": {
+    "other": "View Buckets"
+  },
+  "dashboard.welcome_message": {
+    "other": "Welcome to MinIO Admin Panel"
+  },
+  "errors.connection_failed": {
+    "other": "Connection failed"
+  },
+  "errors.forbidden": {
+    "other": "Access forbidden"
+  },
+  "errors.generic": {
+    "other": "An error occurred"
+  },
+  "errors.network": {
+    "other": "Network error"
+  },
+  "errors.not_found": {
+    "other": "Resource not found"
+  },
+  "errors.server_error": {
+    "other": "Server error"
+  },
+  "errors.timeout": {
+    "other": "Request timeout"
+  },
+  "errors.unauthorized": {
+    "other": "Unauthorized access"
+  },
+  "errors.validation": {
+    "other": "Validation error"
+  },
+  "groups.actions": {
+    "other": "Actions"
+  },
+  "groups.add_members": {
+    "other": "Add Members"
+  },
+  "groups.confirm_delete": {
+    "other": "Are you sure you want to delete this group?"
+  },
+  "groups.create_group": {
+    "other": "Create Group"
+  },
+  "groups.create_first_group": {
+    "other": "Create your first group to get started"
+  },
+  "groups.delete": {
+    "other": "Delete"
+  },
+  "groups.group_created": {
+    "other": "Group created successfully"
+  },
+  "groups.group_deleted": {
+    "other": "Group deleted successfully"
+  },
+  "groups.group_name": {
+    "other": "Group Name"
+  },
+  "groups.group_name_validation": {
+    "other": "Group name must be 3-63 characters, letters, numbers, hyphens and underscores only"
+  },
+  "groups.group_name_help": {
+    "other": "Group names should be unique and descriptive"
+  },
+  "groups.members": {
+    "other": "Members"
+  },
+  "groups.policy": {
+    "other": "Policy"
+  },
+  "groups.group_updated": {
+    "other": "Group updated successfully"
+  },
+  "groups.remove_members": {
+    "other": "Remove Members"
+  },
+  "groups.set_policy": {
+    "other": "Set Policy"
+  },
+  "groups.title": {
+    "other": "Group Management"
+  },
+  "groups.no_groups_found": {
+    "other": "No Groups Found"
+  },
+  "login": {
+    "other": "Login"
+  },
+  "login.error.invalid_credentials": {
+    "other": "Invalid username or password"
+  },
+  "login.error.missing_credentials": {
+    "other": "Please provide both username and password"
+  },
+  "login.error.token_generation": {
+    "other": "Failed to generate session token"
+  },
+  "login.title": {
+    "other": "MinIO Admin Panel - Login"
+  },
+  "login_page.heading": {
+    "other": "MinIO Admin Panel"
+  },
+  "login_page.login_button": {
+    "other": "Login"
+  },
+  "login_page.password_label": {
+    "other": "Password"
+  },
+  "login_page.password_placeholder": {
+    "other": "Enter your password"
+  },
+  "login_page.title": {
+    "other": "MinIO Admin Panel - Login"
+  },
+  "login_page.username_label": {
+    "other": "Username"
+  },
+  "login_page.username_placeholder": {
+    "other": "Enter your username"
+  },
+  "logout": {
+    "other": "Logout"
+  },
+  "messages.changes_saved": {
+    "other": "Changes saved successfully"
+  },
+  "messages.connection_test_failed": {
+    "other": "Connection test failed"
+  },
+  "messages.connection_test_successful": {
+    "other": "Connection test successful!"
+  },
+  "messages.item_created": {
+    "other": "Item created successfully"
+  },
+  "messages.item_deleted": {
+    "other": "Item deleted successfully"
+  },
+  "messages.item_updated": {
+    "other": "Item updated successfully"
+  },
+  "messages.loading_data": {
+    "other": "Loading data..."
+  },
+  "messages.metrics_refreshed": {
+    "other": "Metrics refreshed successfully!"
+  },
+  "messages.no_data": {
+    "other": "No data available"
+  },
+  "messages.operation_successful": {
+    "other": "Operation completed successfully"
+  },
+  "navigation.buckets": {
+    "other": "Buckets"
+  },
+  "navigation.dashboard": {
+    "other": "Dashboard"
+  },
+  "navigation.groups": {
+    "other": "Groups"
+  },
+  "navigation.policies": {
+    "other": "Policies"
+  },
+  "navigation.settings": {
+    "other": "Settings"
+  },
+  "navigation.users": {
+    "other": "Users"
+  },
+  "password": {
+    "other": "Password"
+  },
+  "policies.actions": {
+    "other": "Actions"
+  },
+  "policies.confirm_delete": {
+    "other": "Are you sure you want to delete this policy?"
+  },
+  "policies.create_policy": {
+    "other": "Create Policy"
+  },
+  "policies.create_first_policy": {
+    "other": "Create your first policy to get started"
+  },
+  "policies.delete": {
+    "other": "Delete"
+  },
+  "policies.edit": {
+    "other": "Edit"
+  },
+  "policies.policy_created": {
+    "other": "Policy created successfully"
+  },
+  "policies.policy_deleted": {
+    "other": "Policy deleted successfully"
+  },
+  "policies.policy_document": {
+    "other": "Policy Document"
+  },
+  "policies.policy_name": {
+    "other": "Policy Name"
+  },
+  "policies.policy_name_validation": {
+    "other": "Policy name can only contain letters, numbers, underscores, and hyphens"
+  },
+  "policies.policy_updated": {
+    "other": "Policy updated successfully"
+  },
+  "policies.title": {
+    "other": "Policy Management"
+  },
+  "policies.no_policies_found": {
+    "other": "No policies found"
+  },
+  "policies.view": {
+    "other": "View"
+  },
+  "service_accounts.access_key": {
+    "other": "Access Key"
+  },
+  "service_accounts.actions": {
+    "other": "Actions"
+  },
+  "service_accounts.confirm_delete": {
+    "other": "Are you sure you want to delete this service account?"
+  },
+  "service_accounts.create_service_account": {
+    "other": "Create Service Account"
+  },
+  "service_accounts.delete": {
+    "other": "Delete"
+  },
+  "service_accounts.expiration": {
+    "other": "Expiration"
+  },
+  "service_accounts.parent_user": {
+    "other": "Parent User"
+  },
+  "service_accounts.secret_key": {
+    "other": "Secret Key"
+  },
+  "service_accounts.service_account_created": {
+    "other": "Service account created successfully"
+  },
+  "service_accounts.service_account_deleted": {
+    "other": "Service account deleted successfully"
+  },
+  "service_accounts.status": {
+    "other": "Status"
+  },
+  "service_accounts.title": {
+    "other": "Service Account Management"
+  },
+  "service_accounts.view": {
+    "other": "View"
+  },
+  "settings.application": {
+    "other": "Application"
+  },
+  "settings.application_info": {
+    "other": "Application Information"
+  },
+  "settings.available_features": {
+    "other": "Available Features"
+  },
+  "settings.build_date": {
+    "other": "Build Date"
+  },
+  "settings.connected": {
+    "other": "Connected"
+  },
+  "settings.connection_info_note": {
+    "other": "MinIO connection settings are configured via environment variables. Please refer to the .env.example file for available configuration options."
+  },
+  "settings.connection_status": {
+    "other": "Connection Status"
+  },
+  "settings.current_user": {
+    "other": "Current User"
+  },
+  "settings.dark_theme": {
+    "other": "Dark (Coming Soon)"
+  },
+  "settings.documentation": {
+    "other": "Documentation"
+  },
+  "settings.english": {
+    "other": "English (Default)"
+  },
+  "settings.feature_bucket_management": {
+    "other": "Bucket Management: Create, delete, and manage bucket policies"
+  },
+  "settings.feature_group_management": {
+    "other": "Group Management: Organize users into groups with shared policies"
+  },
+  "settings.feature_policy_management": {
+    "other": "Policy Management: Create and manage custom access policies"
+  },
+  "settings.feature_realtime_metrics": {
+    "other": "Real-time Metrics: Monitor storage usage and server status"
+  },
+  "settings.feature_service_accounts": {
+    "other": "Service Accounts: Generate service accounts for API access"
+  },
+  "settings.feature_user_management": {
+    "other": "User Management: Create users, manage credentials and policies"
+  },
+  "settings.github_repository": {
+    "other": "GitHub Repository"
+  },
+  "settings.i18n_coming_soon": {
+    "other": "Internationalization (Coming Soon)"
+  },
+  "settings.i18n_note": {
+    "other": "Multi-language support will be available in a future update."
+  },
+  "settings.language": {
+    "other": "Language"
+  },
+  "language.selector.title": {
+    "other": "Language"
+  },
+  "language.english": {
+    "other": "English"
+  },
+  "language.ukrainian": {
+    "other": "Українська"
+  },
+  "settings.license": {
+    "other": "License"
+  },
+  "settings.light_theme": {
+    "other": "Light (Default)"
+  },
+  "settings.minio_connection": {
+    "other": "MinIO Connection"
+  },
+  "settings.refresh_metrics": {
+    "other": "Refresh Metrics"
+  },
+  "settings.system_info": {
+    "other": "System Information"
+  },
+  "settings.test_connection": {
+    "other": "Test Connection"
+  },
+  "settings.theme": {
+    "other": "Theme"
+  },
+  "settings.theme_customization_note": {
+    "other": "Theme customization will be available in a future update."
+  },
+  "settings.title": {
+    "other": "Settings"
+  },
+  "settings.upcoming_audit_log": {
+    "other": "Audit logging and reporting"
+  },
+  "settings.upcoming_backup": {
+    "other": "Backup and restore functionality"
+  },
+  "settings.upcoming_dark_theme": {
+    "other": "Dark theme support"
+  },
+  "settings.upcoming_features": {
+    "other": "Upcoming Features"
+  },
+  "settings.upcoming_multilang": {
+    "other": "Multi-language interface"
+  },
+  "settings.upcoming_session_mgmt": {
+    "other": "Advanced user session management"
+  },
+  "settings.user_policy": {
+    "other": "User Policy"
+  },
+  "settings.user_preferences": {
+    "other": "User Preferences"
+  },
+  "settings.version": {
+    "other": "Version"
+  },
+  "username": {
+    "other": "Username"
+  },
+  "users.access_key": {
+    "other": "Access Key"
+  },
+  "users.actions": {
+    "other": "Actions"
+  },
+  "users.confirm_delete": {
+    "other": "Are you sure you want to delete this user?"
+  },
+  "users.create_user": {
+    "other": "Create User"
+  },
+  "users.delete": {
+    "other": "Delete"
+  },
+  "users.disable": {
+    "other": "Disable"
+  },
+  "users.disabled": {
+    "other": "Disabled"
+  },
+  "users.edit": {
+    "other": "Edit"
+  },
+  "users.enable": {
+    "other": "Enable"
+  },
+  "users.enabled": {
+    "other": "Enabled"
+  },
+  "users.groups": {
+    "other": "Groups"
+  },
+  "users.policy": {
+    "other": "Policy"
+  },
+  "users.secret_key": {
+    "other": "Secret Key"
+  },
+  "users.status": {
+    "other": "Status"
+  },
+  "users.title": {
+    "other": "User Management"
+  },
+  "users.user_created": {
+    "other": "User created successfully"
+  },
+  "users.user_deleted": {
+    "other": "User deleted successfully"
+  },
+  "users.user_name": {
+    "other": "User Name"
+  },
+  "users.user_updated": {
+    "other": "User updated successfully"
+  },
+  "users.view_details": {
+    "other": "View Details"
+  },
+  "welcome": {
+    "other": "Welcome"
+  }
+}

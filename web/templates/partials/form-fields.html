@@ -1,0 +1,61 @@
+{{/* Input Field Template */}}
+{{define "input-field"}}
+<div class="mb-3">
+    <label for="{{.id}}" class="form-label">{{.label}}{{if .required}} <span class="text-danger">*</span>{{end}}</label>
+    <div class="{{if .hasInputGroup}}input-group{{end}}">
+        <input type="{{if .type}}{{.type}}{{else}}text{{end}}" class="form-control {{.inputClass}}" id="{{.id}}" name="{{.name}}" {{if .placeholder}}placeholder="{{.placeholder}}" {{end}} {{if .value}}value="{{.value}}" {{end}} {{if .required}}required{{end}} {{if .readonly}}readonly{{end}} {{if .disabled}}disabled{{end}} {{if .minlength}}minlength="{{.minlength}}" {{end}} {{if .maxlength}}maxlength="{{.maxlength}}" {{end}} {{if .min}}min="{{.min}}" {{end}} {{if .max}}max="{{.max}}" {{end}} {{if .pattern}}pattern="{{.pattern}}" {{end}}>
+        {{if .inputGroupButtons}}
+        {{range .inputGroupButtons}}
+        <button class="btn {{.class}}" type="{{if .type}}{{.type}}{{else}}button{{end}}" {{if .onclick}}onclick="{{.onclick}}" {{end}} {{if .title}}title="{{.title}}" {{end}}>
+            {{if .icon}}<i class="{{.icon}}"></i>{{end}}{{if .text}}{{.text}}{{end}}
+        </button>
+        {{end}}
+        {{end}}
+    </div>
+    {{if .helpText}}
+    <div class="form-text">{{.helpText}}</div>
+    {{end}}
+</div>
+{{end}}
+
+{{/* Select Field Template */}}
+{{define "select-field"}}
+<div class="mb-3">
+    <label for="{{.id}}" class="form-label">{{.label}}{{if .required}} <span class="text-danger">*</span>{{end}}</label>
+    <select class="form-select {{.selectClass}}" id="{{.id}}" name="{{.name}}" {{if .multiple}}multiple{{end}} {{if .size}}size="{{.size}}" {{end}} {{if .required}}required{{end}} {{if .disabled}}disabled{{end}}>
+        {{if .placeholder}}
+        <option value="">{{.placeholder}}</option>
+        {{end}}
+        {{range .options}}
+        <option value="{{.value}}" {{if .selected}}selected{{end}} {{if .disabled}}disabled{{end}}>{{.text}}</option>
+        {{end}}
+    </select>
+    {{if .helpText}}
+    <div class="form-text">{{.helpText}}</div>
+    {{end}}
+</div>
+{{end}}
+
+{{/* Textarea Field Template */}}
+{{define "textarea-field"}}
+<div class="mb-3">
+    <label for="{{.id}}" class="form-label">{{.label}}{{if .required}} <span class="text-danger">*</span>{{end}}</label>
+    <textarea class="form-control {{.textareaClass}}" id="{{.id}}" name="{{.name}}" {{if .placeholder}}placeholder="{{.placeholder}}" {{end}} {{if .rows}}rows="{{.rows}}" {{end}} {{if .required}}required{{end}} {{if .readonly}}readonly{{end}} {{if .disabled}}disabled{{end}} {{if .minlength}}minlength="{{.minlength}}" {{end}} {{if .maxlength}}maxlength="{{.maxlength}}" {{end}}>{{.value}}</textarea>
+    {{if .helpText}}
+    <div class="form-text">{{.helpText}}</div>
+    {{end}}
+</div>
+{{end}}
+
+{{/* Checkbox Field Template */}}
+{{define "checkbox-field"}}
+<div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input {{.checkboxClass}}" id="{{.id}}" name="{{.name}}" value="{{if .value}}{{.value}}{{else}}1{{end}}" {{if .checked}}checked{{end}} {{if .required}}required{{end}} {{if .disabled}}disabled{{end}}>
+    <label class="form-check-label" for="{{.id}}">
+        {{.label}}{{if .required}} <span class="text-danger">*</span>{{end}}
+    </label>
+    {{if .helpText}}
+    <div class="form-text">{{.helpText}}</div>
+    {{end}}
+</div>
+{{end}}

@@ -80,8 +80,8 @@ func (h *PolicyHandler) ListPolicies(c *gin.Context) {
 		})
 	}
 
-	c.HTML(http.StatusOK, "policies.html", gin.H{
-		"title":       "Policies",
+	RenderWithTranslations(c, "policies.html", gin.H{
+		"title":       "policies.title",
 		"policies":    policyList,
 		"permissions": permissions,
 		"username":    username,

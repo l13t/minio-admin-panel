@@ -1,0 +1,87 @@
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>Confirm Action
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmModalMessage">Are you sure you want to perform this action?</p>
+                <div id="confirmModalDetails" class="text-muted small" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancel
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmModalAction">
+                    <i class="fas fa-check me-1"></i>Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let confirmModalCallback = null;
+
+    function showConfirmModal(message, callback, options = {}) {
+        const modal = document.getElementById('confirmModal');
+        const messageEl = document.getElementById('confirmModalMessage');
+        const detailsEl = document.getElementById('confirmModalDetails');
+        const actionBtn = document.getElementById('confirmModalAction');
+        const titleEl = document.getElementById('confirmModalLabel');
+
+        // Set content
+        messageEl.textContent = message;
+
+        if (options.details) {
+            detailsEl.textContent = options.details;
+            detailsEl.style.display = 'block';
+        } else {
+            detailsEl.style.display = 'none';
+        }
+
+        if (options.title) {
+            titleEl.innerHTML = `<i class="fas fa-exclamation-triangle text-warning me-2"></i>${options.title}`;
+        }
+
+        if (options.confirmText) {
+            actionBtn.innerHTML = `<i class="fas fa-check me-1"></i>${options.confirmText}`;
+        }
+
+        if (options.confirmClass) {
+            actionBtn.className = `btn ${options.confirmClass}`;
+        }
+
+        // Set callback
+        confirmModalCallback = callback;
+
+        // Show modal
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+    }
+
+    // Handle confirm button click
+    document.getElementById('confirmModalAction').addEventListener('click', function () {
+        if (confirmModalCallback) {
+            confirmModalCallback();
+            confirmModalCallback = null;
+        }
+
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+        modal.hide();
+    });
+
+    // Reset modal when hidden
+    document.getElementById('confirmModal').addEventListener('hidden.bs.modal', function () {
+        confirmModalCallback = null;
+
+        // Reset to defaults
+        document.getElementById('confirmModalLabel').innerHTML = '<i class="fas fa-exclamation-triangle text-warning me-2"></i>Confirm Action';
+        document.getElementById('confirmModalAction').innerHTML = '<i class="fas fa-check me-1"></i>Confirm';
+        document.getElementById('confirmModalAction').className = 'btn btn-danger';
+    });
+</script>

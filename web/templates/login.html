@@ -28,10 +28,60 @@
             font-size: 2.5rem;
             font-weight: bold;
         }
+
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-selector .dropdown-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-selector .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .language-selector .dropdown-menu {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
     </style>
 </head>
 
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-globe me-2"></i>{{t "language.selector.title"}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                <li>
+                    <form action="/set-language" method="POST" class="d-inline">
+                        <input type="hidden" name="language" value="en">
+                        <button type="submit" class="dropdown-item">
+                            <i class="fas fa-flag-usa me-2"></i>{{t "language.english"}}
+                        </button>
+                    </form>
+                </li>
+                <li>
+                    <form action="/set-language" method="POST" class="d-inline">
+                        <input type="hidden" name="language" value="uk">
+                        <button type="submit" class="dropdown-item">
+                            <i class="fas fa-flag me-2"></i>{{t "language.ukrainian"}}
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div class="login-container">
         <div class="container">
             <div class="row justify-content-center">
@@ -40,8 +90,8 @@
                         <div class="card-body p-5">
                             <div class="text-center mb-4">
                                 <i class="fas fa-server minio-logo"></i>
-                                <h2 class="mt-3">MinIO Admin Panel</h2>
-                                <p class="text-muted">Sign in to manage your MinIO instance</p>
+                                <h2 class="mt-3">{{t "login_page.heading"}}</h2>
+                                <p class="text-muted">{{t "login_page.heading"}}</p>
                             </div>
 
                             {{if .error}}
@@ -52,24 +102,23 @@
 
                             <form action="/login" method="POST">
                                 <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
+                                    <label for="username" class="form-label">{{t "login_page.username_label"}}</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input type="text" class="form-control" id="username" name="username" required>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder='{{t "login_page.username_placeholder"}}' required>
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">{{t "login_page.password_label"}}</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            required>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder='{{t "login_page.password_placeholder"}}' required>
                                     </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100">
-                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                    <i class="fas fa-sign-in-alt me-2"></i>{{t "login_page.login_button"}}
                                 </button>
                             </form>
                         </div>

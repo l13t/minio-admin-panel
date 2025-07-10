@@ -1,36 +1,26 @@
-# Build stage
-FROM golang:1.24-alpine AS builder
+FROM golang:1.24 AS builder
 
+# Set the working directory
 WORKDIR /app
 
-# Copy go mod files
+# Copy the Go modules manifests
 COPY go.mod go.sum ./
-
 # Download dependencies
 RUN go mod download
-
-# Copy source code
+# Copy the source code
 COPY . .
 
-# Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o minio-admin-panel .
 
-# Final stage
-FROM alpine:latest
+# Use a minimal base image for the final binary
+FROM scratch
 
-# Install ca-certificates for HTTPS requests
-RUN apk --no-cache add ca-certificates
+COPY --from=builder /app/minio-admin-panel /minio-admin-panel
+COPY --from=builder /app/translations /translations
+COPY --from=builder /app/web /web
 
-WORKDIR /root/
-
-# Copy the binary from builder stage
-COPY --from=builder /app/main .
-
-# Copy web assets
-COPY --from=builder /app/web ./web
-
-# Expose port
+# Set the entrypoint for the container
+ENTRYPOINT ["/minio-admin-panel"]
+# Expose the port the app runs on
 EXPOSE 8080
-
-# Run the application
-CMD ["./main"]

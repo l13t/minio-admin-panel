@@ -67,8 +67,8 @@ func (h *BucketHandler) ListBuckets(c *gin.Context) {
 	log.Printf("[DEBUG] Rendering HTML page with %d buckets", len(buckets))
 	permissions, _ := c.Get("permissions")
 	policyName, _ := c.Get("policy_name")
-	c.HTML(http.StatusOK, "buckets.html", gin.H{
-		"title":       "Buckets",
+	RenderWithTranslations(c, "buckets.html", gin.H{
+		"title":       "buckets.title",
 		"buckets":     buckets,
 		"permissions": permissions,
 		"username":    username,

@@ -1,0 +1,59 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Common utility functions
+    async function copyToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (err) {
+            console.error('Failed to copy to clipboard:', err);
+            return false;
+        }
+    }
+
+    function showLoadingState(button, loadingText = 'Loading...') {
+        const originalText = button.innerHTML;
+        button.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${loadingText}`;
+        button.disabled = true;
+        return originalText;
+    }
+
+    function hideLoadingState(button, originalText) {
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }
+
+    function showSuccessState(button, successText = 'Success!', duration = 2000) {
+        const originalText = button.innerHTML;
+        button.innerHTML = `<i class="fas fa-check me-2"></i>${successText}`;
+        button.classList.add('btn-success');
+
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+        }, duration);
+    }
+
+    // Common API request handler
+    async function apiRequest(url, options = {}) {
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || `HTTP error! status: ${response.status}`);
+            }
+
+            return data;
+        } catch (error) {
+            console.error('API request failed:', error);
+            throw error;
+        }
+    }
+
+    // Common error handler
+    function handleError(error, context = 'Operation') {
+        console.error(`${context} failed:`, error);
+        alert(`${context} failed: ${error.message}`);
+    }
+</script>

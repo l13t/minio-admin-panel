@@ -67,8 +67,8 @@ func (h *UserHandler) ListUsers(c *gin.Context) {
 	permissions, _ := c.Get("permissions")
 	policyName, _ := c.Get("policy_name")
 
-	c.HTML(http.StatusOK, "users.html", gin.H{
-		"title":       "Users",
+	RenderWithTranslations(c, "users.html", gin.H{
+		"title":       "users.title",
 		"users":       users,
 		"permissions": permissions,
 		"username":    username,

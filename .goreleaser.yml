@@ -1,0 +1,211 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+# Project name and metadata
+project_name: minio-admin-panel
+
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+    # you may remove this if you don't need go generate
+    - go generate ./...
+
+builds:
+  - id: "minio-admin-panel"
+    main: ./main.go
+    binary: minio-admin-panel
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm:
+      - "6"
+      - "7"
+    ignore:
+      - goos: windows
+        goarch: arm
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+      - -X main.builtBy=goreleaser
+
+archives:
+  - id: default
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - web/**/*
+      - translations/**/*
+      - .env.example
+
+# Universal binaries for macOS
+universal_binaries:
+  - replace: true
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+      - "merge conflict"
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+      - go mod tidy
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: "Bug fixes"
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: "Performance improvements"
+      regexp: '^.*?perf(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: "Refactors"
+      regexp: '^.*?refactor(\([[:word:]]+\))??!?:.+$'
+      order: 3
+    - title: Others
+      order: 999
+
+# GitHub Release configuration
+release:
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  prerelease: auto
+
+  # What to do with the release notes in case there is already a release.
+  # Valid options are:
+  # - `keep-existing`: keep the existing notes
+  # - `append`: append the current release notes to the existing notes
+  # - `prepend`: prepend the current release notes to the existing notes
+  # - `replace`: replace existing notes
+  mode: append
+
+  # Header template for the release body.
+  header: |
+    ## MinIO Admin Panel {{ .Tag }} ({{ .Date }})
+
+    A web-based administration panel for MinIO object storage.
+
+  # Footer template for the release body.
+  footer: |
+    ## Installation
+
+    ### Download and Run
+    ```bash
+    # Download for your platform
+    wget https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel/releases/download/{{ .Tag }}/minio-admin-panel_{{ .Os }}_{{ .Arch }}.tar.gz
+    tar -xzf minio-admin-panel_{{ .Os }}_{{ .Arch }}.tar.gz
+    ./minio-admin-panel
+    ```
+
+    ### Configuration
+    Copy `.env.example` to `.env` and configure your MinIO connection settings.
+
+    **Full Changelog**: https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+# Docker configuration
+dockers:
+  - image_templates:
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:{{ .Version }}-amd64"
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:latest-amd64"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--label=org.opencontainers.image.description=Web-based administration panel for MinIO"
+      - "--label=org.opencontainers.image.licenses=MIT"
+      - "--platform=linux/amd64"
+  - image_templates:
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:{{ .Version }}-arm64v8"
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:latest-arm64v8"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--label=org.opencontainers.image.description=Web-based administration panel for MinIO"
+      - "--label=org.opencontainers.image.licenses=MIT"
+      - "--platform=linux/arm64/v8"
+    goarch: arm64
+
+# Multi-platform Docker manifests
+docker_manifests:
+  - name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:{{ .Version }}"
+    image_templates:
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:{{ .Version }}-amd64"
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:{{ .Version }}-arm64v8"
+  - name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:latest"
+    image_templates:
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:latest-amd64"
+      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel:latest-arm64v8"
+# Homebrew tap (optional - uncomment if you want to publish to Homebrew)
+# brews:
+#   - name: minio-admin-panel
+#     tap:
+#       owner: "{{ .Env.GITHUB_REPOSITORY_OWNER }}"
+#       name: homebrew-tap
+#     url_template: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+#     download_strategy: CurlDownloadStrategy
+#     homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY_OWNER }}/minio-admin-panel"
+#     description: "Web-based administration panel for MinIO object storage"
+#     license: "MIT"
+#     skip_upload: auto
+#     test: |
+#       system "#{bin}/minio-admin-panel --version"
+#     install: |-
+#       bin.install "minio-admin-panel"
+
+# Announcement (optional)
+# announce:
+#   slack:
+#     enabled: true
+#     message_template: 'MinIO Admin Panel {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+#     channel: '#releases'
+#     username: 'GoReleaser'

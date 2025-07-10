@@ -9,13 +9,31 @@ import (
 
 	"minio-admin-panel/internal/config"
 	"minio-admin-panel/internal/handlers"
+	"minio-admin-panel/internal/i18n"
 	"minio-admin-panel/internal/middleware"
 	"minio-admin-panel/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
 
+// Build-time variables set by GoReleaser
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+	builtBy = "unknown"
+)
+
 func main() {
+	// Print version information
+	log.Printf("MinIO Admin Panel %s (commit: %s, built: %s by %s)", version, commit, date, builtBy)
+
+	// Initialize internationalization
+	i18n.Init("en") // Default language: English
+	if err := i18n.LoadDir("translations/i18n"); err != nil {
+		log.Printf("Warning: Failed to load translations: %v", err)
+	}
+
 	// Load configuration
 	cfg := config.Load()
 
@@ -28,20 +46,49 @@ func main() {
 	userHandler := handlers.NewUserHandler(minioService)
 	policyHandler := handlers.NewPolicyHandler(minioService)
 	groupHandler := handlers.NewGroupHandler(minioService)
+	serviceAccountHandler := handlers.NewServiceAccountHandler(minioService)
 	apiHandler := handlers.NewAPIHandler(minioService)
+	settingsHandler := handlers.NewSettingsHandler(minioService, version, commit, date, builtBy)
 
 	// Setup Gin router
 	r := gin.Default()
 
-	// Load HTML templates with custom functions
-	r.SetFuncMap(template.FuncMap{
+	// Add language middleware
+	r.Use(middleware.LanguageMiddleware())
+
+	// Load templates from main directory and partials subdirectory
+	funcMap := template.FuncMap{
 		"formatBytes": formatBytes,
-	})
-	r.LoadHTMLGlob("web/templates/*")
+		"t": func(key string) string {
+			return handlers.TranslateInTemplate(key)
+		},
+		"tWithParams": func(key string, params ...interface{}) string {
+			return handlers.TranslateInTemplateWithParams(key, params...)
+		},
+		"tCount": func(key string, count int) string {
+			return handlers.TranslateInTemplateWithCount(key, count)
+		},
+	}
+
+	tmpl := template.New("").Funcs(funcMap)
+
+	// Parse templates from main directory
+	tmpl, err := tmpl.ParseGlob("web/templates/*.html")
+	if err != nil {
+		log.Fatal("Failed to load main templates:", err)
+	}
+
+	// Parse templates from partials directory
+	tmpl, err = tmpl.ParseGlob("web/templates/partials/*.html")
+	if err != nil {
+		log.Fatal("Failed to load partial templates:", err)
+	}
+
+	r.SetHTMLTemplate(tmpl)
 	r.Static("/static", "./web/static")
 
 	// Routes
-	setupRoutes(r, authHandler, bucketHandler, userHandler, policyHandler, groupHandler, apiHandler)
+	setupRoutes(r, authHandler, bucketHandler, userHandler, policyHandler, groupHandler, serviceAccountHandler, apiHandler, settingsHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -52,11 +99,59 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }
 
-func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler *handlers.BucketHandler, userHandler *handlers.UserHandler, policyHandler *handlers.PolicyHandler, groupHandler *handlers.GroupHandler, apiHandler *handlers.APIHandler) {
+func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler *handlers.BucketHandler, userHandler *handlers.UserHandler, policyHandler *handlers.PolicyHandler, groupHandler *handlers.GroupHandler, serviceAccountHandler *handlers.ServiceAccountHandler, apiHandler *handlers.APIHandler, settingsHandler *handlers.SettingsHandler) {
+	// Health check endpoint
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok", "version": version})
+	})
+
 	// Auth routes
 	r.GET("/", authHandler.LoginPage)
 	r.POST("/login", authHandler.Login)
 	r.POST("/logout", authHandler.Logout)
+
+	// Language switching endpoint
+	r.POST("/set-language", func(c *gin.Context) {
+		var langData struct {
+			Language string `json:"language" form:"language"`
+		}
+
+		if err := c.ShouldBind(&langData); err != nil {
+			c.JSON(400, gin.H{"error": "Invalid language parameter"})
+			return
+		}
+
+		// Validate the language
+		supportedLanguages := i18n.GetAvailableLanguages()
+		isValid := false
+		for _, lang := range supportedLanguages {
+			if langData.Language == lang {
+				isValid = true
+				break
+			}
+		}
+
+		if !isValid {
+			c.JSON(400, gin.H{"error": "Unsupported language"})
+			return
+		}
+
+		// Set the language cookie
+		c.SetCookie("language", langData.Language, 86400*30, "/", "", false, false) // 30 days
+
+		// If it's a JSON request, return JSON response
+		if c.GetHeader("Content-Type") == "application/json" || c.GetHeader("Accept") == "application/json" {
+			c.JSON(200, gin.H{"success": true, "language": langData.Language})
+			return
+		}
+
+		// For form submissions, redirect back to the referring page
+		referer := c.GetHeader("Referer")
+		if referer == "" {
+			referer = "/"
+		}
+		c.Redirect(302, referer)
+	})
 
 	// Protected routes
 	protected := r.Group("/")
@@ -68,7 +163,8 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			username, _ := c.Get("username")
 			policyName, _ := c.Get("policy_name")
 
-			c.HTML(http.StatusOK, "dashboard.html", gin.H{
+			// Use the helper for consistent translation handling
+			handlers.RenderWithTranslations(c, "dashboard.html", gin.H{
 				"title":       "MinIO Admin Panel",
 				"username":    username,
 				"policy_name": policyName,
@@ -116,6 +212,16 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			groupRoutes.PUT("/:name/policy", groupHandler.SetGroupPolicy)
 		}
 
+		// Service Account management - require admin permissions
+		serviceAccountRoutes := protected.Group("/service-accounts")
+		serviceAccountRoutes.Use(middleware.RequirePermission("canManageUsers"))
+		{
+			serviceAccountRoutes.GET("", serviceAccountHandler.ListServiceAccounts)
+			serviceAccountRoutes.POST("", serviceAccountHandler.CreateServiceAccount)
+			serviceAccountRoutes.GET("/:accessKey", serviceAccountHandler.GetServiceAccountInfo)
+			serviceAccountRoutes.DELETE("/:accessKey", serviceAccountHandler.DeleteServiceAccount)
+		}
+
 		// Policy management - require admin permissions
 		policyRoutes := protected.Group("/policies")
 		policyRoutes.Use(middleware.RequirePermission("canManageUsers"))
@@ -126,6 +232,9 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 			policyRoutes.PUT("/:name", policyHandler.CreateOrUpdatePolicy)
 			policyRoutes.DELETE("/:name", policyHandler.DeletePolicy)
 		}
+
+		// Settings - require admin permissions
+		protected.GET("/settings", middleware.RequirePermission("isAdmin"), settingsHandler.ShowSettings)
 
 		// API routes for AJAX
 		api := protected.Group("/api")
@@ -139,6 +248,10 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 				c.Request.Header.Set("Accept", "application/json")
 				groupHandler.ListGroups(c)
 			})
+			api.GET("/service-accounts", serviceAccountHandler.ListServiceAccounts)
+			api.POST("/service-accounts", serviceAccountHandler.CreateServiceAccount)
+			api.GET("/service-accounts/:accessKey", serviceAccountHandler.GetServiceAccountInfo)
+			api.DELETE("/service-accounts/:accessKey", serviceAccountHandler.DeleteServiceAccount)
 		}
 	}
 }
