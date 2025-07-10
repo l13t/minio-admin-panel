@@ -12,6 +12,7 @@ import (
 func LanguageMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		lang := getLanguageFromRequest(c)
+		fmt.Printf("[DEBUG] LanguageMiddleware determined language: %s\n", lang)
 		c.Set("language", lang)
 
 		// Always ensure the cookie is set or updated
@@ -19,7 +20,7 @@ func LanguageMiddleware() gin.HandlerFunc {
 			// Set/update the language cookie with each request to refresh expiry
 			// Secure: false to allow HTTP testing, HttpOnly: false to allow JS access
 			c.SetCookie("language", lang, 86400*30, "/", "", false, false) // 30 days
-			fmt.Printf("Set language cookie: %s\n", lang)
+			fmt.Printf("[DEBUG] Set language cookie: %s\n", lang)
 		}
 
 		c.Next()
@@ -28,10 +29,12 @@ func LanguageMiddleware() gin.HandlerFunc {
 
 // getLanguageFromRequest determines the language from various sources
 func getLanguageFromRequest(c *gin.Context) string {
+	fmt.Printf("[DEBUG] getLanguageFromRequest called\n")
+
 	// 1. Check for explicit language parameter
 	if lang := c.Query("lang"); lang != "" {
 		if isValidLanguage(lang) {
-			fmt.Printf("Using language from URL parameter: %s\n", lang)
+			fmt.Printf("[DEBUG] Using language from URL parameter: %s\n", lang)
 			return lang
 		}
 	}
@@ -39,7 +42,7 @@ func getLanguageFromRequest(c *gin.Context) string {
 	// 2. Check for language cookie
 	if lang, err := c.Cookie("language"); err == nil && lang != "" {
 		if isValidLanguage(lang) {
-			fmt.Printf("Using language from cookie: %s\n", lang)
+			fmt.Printf("[DEBUG] Using language from cookie: %s\n", lang)
 			return lang
 		}
 	}

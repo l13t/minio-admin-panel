@@ -56,19 +56,35 @@ func main() {
 	// Add language middleware
 	r.Use(middleware.LanguageMiddleware())
 
-	// Load HTML templates with custom functions
-	r.SetFuncMap(template.FuncMap{
+	// Load templates from main directory and partials subdirectory
+	funcMap := template.FuncMap{
 		"formatBytes": formatBytes,
 		"t": func(key string) string {
-			// This will be overridden in template execution context
-			return key
+			return handlers.TranslateInTemplate(key)
 		},
 		"tWithParams": func(key string, params ...interface{}) string {
-			// This will be overridden in template execution context
-			return key
+			return handlers.TranslateInTemplateWithParams(key, params...)
 		},
-	})
-	r.LoadHTMLGlob("web/templates/*")
+		"tCount": func(key string, count int) string {
+			return handlers.TranslateInTemplateWithCount(key, count)
+		},
+	}
+
+	tmpl := template.New("").Funcs(funcMap)
+
+	// Parse templates from main directory
+	tmpl, err := tmpl.ParseGlob("web/templates/*.html")
+	if err != nil {
+		log.Fatal("Failed to load main templates:", err)
+	}
+
+	// Parse templates from partials directory
+	tmpl, err = tmpl.ParseGlob("web/templates/partials/*.html")
+	if err != nil {
+		log.Fatal("Failed to load partial templates:", err)
+	}
+
+	r.SetHTMLTemplate(tmpl)
 	r.Static("/static", "./web/static")
 
 	// Routes
@@ -93,6 +109,49 @@ func setupRoutes(r *gin.Engine, authHandler *handlers.AuthHandler, bucketHandler
 	r.GET("/", authHandler.LoginPage)
 	r.POST("/login", authHandler.Login)
 	r.POST("/logout", authHandler.Logout)
+
+	// Language switching endpoint
+	r.POST("/set-language", func(c *gin.Context) {
+		var langData struct {
+			Language string `json:"language" form:"language"`
+		}
+
+		if err := c.ShouldBind(&langData); err != nil {
+			c.JSON(400, gin.H{"error": "Invalid language parameter"})
+			return
+		}
+
+		// Validate the language
+		supportedLanguages := i18n.GetAvailableLanguages()
+		isValid := false
+		for _, lang := range supportedLanguages {
+			if langData.Language == lang {
+				isValid = true
+				break
+			}
+		}
+
+		if !isValid {
+			c.JSON(400, gin.H{"error": "Unsupported language"})
+			return
+		}
+
+		// Set the language cookie
+		c.SetCookie("language", langData.Language, 86400*30, "/", "", false, false) // 30 days
+
+		// If it's a JSON request, return JSON response
+		if c.GetHeader("Content-Type") == "application/json" || c.GetHeader("Accept") == "application/json" {
+			c.JSON(200, gin.H{"success": true, "language": langData.Language})
+			return
+		}
+
+		// For form submissions, redirect back to the referring page
+		referer := c.GetHeader("Referer")
+		if referer == "" {
+			referer = "/"
+		}
+		c.Redirect(302, referer)
+	})
 
 	// Protected routes
 	protected := r.Group("/")

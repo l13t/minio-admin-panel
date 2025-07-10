@@ -1,0 +1,30 @@
+<!-- Base Layout Template -->
+<!DOCTYPE html>
+<html lang="en">
+{{template "head.html" .}}
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            {{template "sidebar.html" .}}
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                {{if .showPageHeader}}
+                {{template "page-header.html" .}}
+                {{end}}
+
+                <!-- Page Content -->
+                {{.pageContent}}
+            </main>
+        </div>
+    </div>
+
+    {{template "confirm-modal.html" .}}
+    {{template "scripts.html" .}}
+
+    <!-- Page-specific scripts -->
+    {{.pageScripts}}
+</body>
+
+</html>

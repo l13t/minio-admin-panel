@@ -86,11 +86,13 @@ func T(lang, msgID string) string {
 	mutex.RLock()
 	defer mutex.RUnlock()
 
+	fmt.Printf("[DEBUG] T() called with lang='%s', msgID='%s'\n", lang, msgID)
+
 	// Get the appropriate localizer
 	localizer, exists := localizers[lang]
 	if !exists {
 		// Fall back to default if language not found
-		fmt.Printf("Language %s not found, using default %s\n", lang, defaultLanguage)
+		fmt.Printf("[DEBUG] Language '%s' not found, using default '%s'\n", lang, defaultLanguage)
 		localizer = localizers[defaultLanguage]
 	}
 
@@ -100,23 +102,28 @@ func T(lang, msgID string) string {
 	})
 
 	if err != nil {
-		fmt.Printf("Translation error for %s in %s: %v\n", msgID, lang, err)
+		fmt.Printf("[DEBUG] Translation error for '%s' in language '%s': %v\n", msgID, lang, err)
 
 		// Try with default language if different
 		if lang != defaultLanguage {
+			fmt.Printf("[DEBUG] Attempting fallback to default language '%s' for key '%s'\n", defaultLanguage, msgID)
 			defMsg, defErr := localizers[defaultLanguage].Localize(&goi18n.LocalizeConfig{
 				MessageID: msgID,
 			})
 
 			if defErr == nil {
+				fmt.Printf("[DEBUG] Fallback successful for '%s': '%s'\n", msgID, defMsg)
 				return defMsg
 			}
+			fmt.Printf("[DEBUG] Fallback also failed for '%s': %v\n", msgID, defErr)
 		}
 
 		// Return the key if all attempts fail
+		fmt.Printf("[DEBUG] All translation attempts failed for '%s', returning key\n", msgID)
 		return msgID
 	}
 
+	fmt.Printf("[DEBUG] Translation successful for '%s': '%s'\n", msgID, msg)
 	return msg
 }
 

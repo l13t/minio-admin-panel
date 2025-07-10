@@ -1,0 +1,113 @@
+{{/* Data Table Template */}}
+{{define "data-table"}}
+<div class="card">
+    <div class="card-body">
+        {{if .tableTitle}}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title mb-0">{{.tableTitle}}</h5>
+            {{if .tableActions}}
+            <div class="btn-group" role="group">
+                {{.tableActions}}
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+
+        {{if .tableFilters}}
+        <div class="row mb-3">
+            {{.tableFilters}}
+        </div>
+        {{end}}
+
+        <div class="table-responsive">
+            <table class="table table-hover {{.tableClass}}" {{if .tableId}}id="{{.tableId}}" {{end}}>
+                {{if .tableHeaders}}
+                <thead {{if .headerClass}}class="{{.headerClass}}" {{end}}>
+                    <tr>
+                        {{range .tableHeaders}}
+                        <th {{if .class}}class="{{.class}}" {{end}} {{if .width}}style="width: {{.width}}" {{end}}>
+                            {{.text}}
+                        </th>
+                        {{end}}
+                    </tr>
+                </thead>
+                {{end}}
+                <tbody {{if .tbodyId}}id="{{.tbodyId}}" {{end}}>
+                    {{if .tableRows}}
+                    {{range .tableRows}}
+                    <tr {{if .rowClass}}class="{{.rowClass}}" {{end}} {{if .rowId}}id="{{.rowId}}" {{end}}>
+                        {{range .cells}}
+                        <td {{if .class}}class="{{.class}}" {{end}}>{{.content}}</td>
+                        {{end}}
+                    </tr>
+                    {{end}}
+                    {{else}}
+                    <tr>
+                        <td colspan="{{len .tableHeaders}}" class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-3 d-block"></i>
+                            {{if .emptyMessage}}{{.emptyMessage}}{{else}}No data available{{end}}
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        {{if .tablePagination}}
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="text-muted">
+                {{.tablePagination.info}}
+            </div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    {{range .tablePagination.pages}}
+                    <li class="page-item {{.class}}">
+                        <a class="page-link" href="{{.href}}" {{if .onclick}}onclick="{{.onclick}}" {{end}}>
+                            {{.text}}
+                        </a>
+                    </li>
+                    {{end}}
+                </ul>
+            </nav>
+        </div>
+        {{end}}
+    </div>
+</div>
+{{end}}
+
+{{/* Simple Card Template */}}
+{{define "info-card"}}
+<div class="card {{.cardClass}}">
+    {{if .cardHeader}}
+    <div class="card-header {{.headerClass}}">
+        {{if .headerIcon}}<i class="{{.headerIcon}} me-2"></i>{{end}}{{.cardHeader}}
+    </div>
+    {{end}}
+    <div class="card-body {{.bodyClass}}">
+        {{.cardContent}}
+    </div>
+    {{if .cardFooter}}
+    <div class="card-footer {{.footerClass}}">
+        {{.cardFooter}}
+    </div>
+    {{end}}
+</div>
+{{end}}
+
+{{/* Badge Template */}}
+{{define "status-badge"}}
+<span class="badge {{if .badgeClass}}{{.badgeClass}}{{else}}bg-secondary{{end}}">
+    {{if .badgeIcon}}<i class="{{.badgeIcon}} me-1"></i>{{end}}{{.badgeText}}
+</span>
+{{end}}
+
+{{/* Button Group Template */}}
+{{define "button-group"}}
+<div class="btn-group {{.groupClass}}" role="group" {{if .groupLabel}}aria-label="{{.groupLabel}}" {{end}}>
+    {{range .buttons}}
+    <button type="{{if .type}}{{.type}}{{else}}button{{end}}" class="btn {{.class}}" {{if .onclick}}onclick="{{.onclick}}" {{end}} {{if .title}}title="{{.title}}" {{end}} {{if .disabled}}disabled{{end}}>
+        {{if .icon}}<i class="{{.icon}}"></i>{{end}}{{if .text}}{{.text}}{{end}}
+    </button>
+    {{end}}
+</div>
+{{end}}

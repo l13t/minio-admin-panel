@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        {{if .pageIcon}}<i class="{{.pageIcon}} me-2"></i>{{end}}{{.pageTitle}}
+    </h1>
+    {{if .pageActions}}
+    <div class="btn-toolbar" role="toolbar">
+        {{.pageActions}}
+    </div>
+    {{end}}
+</div>

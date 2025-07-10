@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"log"
+	"strings"
 	"minio-admin-panel/internal/i18n"
 	"minio-admin-panel/internal/middleware"
 
@@ -57,9 +58,36 @@ func RenderWithTranslations(c *gin.Context, templateName string, data gin.H) {
 	lang := middleware.GetLanguage(c)
 	log.Printf("[DEBUG i18n] Rendering template %s with language: %s", templateName, lang)
 
+	// Set up translation context for template functions
+	contextID := SetTemplateContext(lang)
+	SetCurrentContext(contextID)
+	defer func() {
+		CleanupTemplateContext(contextID)
+	}()
+
 	// Add translation functions to data
 	if data == nil {
 		data = gin.H{}
+	}
+
+	// Auto-detect current page from template name
+	if templateName != "" {
+		switch {
+		case strings.Contains(templateName, "dashboard"):
+			data["currentPage"] = "dashboard"
+		case strings.Contains(templateName, "users"):
+			data["currentPage"] = "users"
+		case strings.Contains(templateName, "groups"):
+			data["currentPage"] = "groups"
+		case strings.Contains(templateName, "policies"):
+			data["currentPage"] = "policies"
+		case strings.Contains(templateName, "buckets"):
+			data["currentPage"] = "buckets"
+		case strings.Contains(templateName, "settings"):
+			data["currentPage"] = "settings"
+		default:
+			data["currentPage"] = ""
+		}
 	}
 
 	// Debug: print existing data keys
@@ -70,20 +98,39 @@ func RenderWithTranslations(c *gin.Context, templateName string, data gin.H) {
 	fmt.Printf("\n")
 
 	data["language"] = lang
-	data["t"] = func(key string) string {
-		log.Printf("[DEBUG i18n] Translation requested for key: '%s' in language: '%s'", key, lang)
+
+	// Translate all string values that look like translation keys
+	translatedData := gin.H{}
+	for key, value := range data {
+		switch v := value.(type) {
+		case string:
+			// If the value looks like a translation key (contains dots), translate it
+			if strings.Contains(v, ".") && !strings.Contains(v, " ") && !strings.Contains(v, "/") {
+				translated := i18n.T(lang, v)
+				log.Printf("[DEBUG i18n] Auto-translated '%s': '%s' -> '%s'", key, v, translated)
+				translatedData[key] = translated
+			} else {
+				translatedData[key] = v
+			}
+		default:
+			translatedData[key] = v
+		}
+	}
+
+	// Create translation functions that work with the current language
+	translatedData["t"] = func(key string) string {
+		log.Printf("[DEBUG i18n] Template function t() called with key: '%s' in language: '%s'", key, lang)
 		translated := i18n.T(lang, key)
 		if translated == key {
-			// If key is returned unchanged, it wasn't found
 			log.Printf("[DEBUG i18n] WARNING: Missing translation for key '%s' in language '%s'", key, lang)
 		} else {
 			log.Printf("[DEBUG i18n] SUCCESS: Translated '%s' -> '%s'", key, translated)
 		}
 		return translated
 	}
-	data["tWithParams"] = func(key string, params ...interface{}) string {
-		log.Printf("[DEBUG i18n] tWithParams called - key: '%s', params count: %d", key, len(params))
-		// Convert variadic params to a map for the go-i18n library
+
+	translatedData["tWithParams"] = func(key string, params ...interface{}) string {
+		log.Printf("[DEBUG i18n] Template function tWithParams() called - key: '%s', params count: %d", key, len(params))
 		if len(params) > 0 && len(params)%2 == 0 {
 			paramsMap := make(map[string]interface{})
 			for i := 0; i < len(params); i += 2 {
@@ -99,7 +146,8 @@ func RenderWithTranslations(c *gin.Context, templateName string, data gin.H) {
 		log.Printf("[DEBUG i18n] No valid params, falling back to simple translation")
 		return i18n.T(lang, key)
 	}
-	data["tCount"] = func(key string, count int) string {
+
+	translatedData["tCount"] = func(key string, count int) string {
 		log.Printf("[DEBUG i18n] tCount called - key: '%s', count: %d", key, count)
 		result := i18n.TWithCount(lang, key, count)
 		log.Printf("[DEBUG i18n] tCount result: '%s' -> '%s'", key, result)
@@ -107,24 +155,24 @@ func RenderWithTranslations(c *gin.Context, templateName string, data gin.H) {
 	}
 
 	// Add common template data if not already present
-	if _, exists := data["username"]; !exists {
+	if _, exists := translatedData["username"]; !exists {
 		username, _ := c.Get("username")
-		data["username"] = username
+		translatedData["username"] = username
 	}
-	if _, exists := data["policy_name"]; !exists {
+	if _, exists := translatedData["policy_name"]; !exists {
 		policyName, _ := c.Get("policy_name")
-		data["policy_name"] = policyName
+		translatedData["policy_name"] = policyName
 	}
-	if _, exists := data["permissions"]; !exists {
-		data["permissions"] = middleware.GetUserPermissions(c)
+	if _, exists := translatedData["permissions"]; !exists {
+		translatedData["permissions"] = middleware.GetUserPermissions(c)
 	}
 
 	log.Printf("[DEBUG i18n] Final template data keys: ")
-	for key := range data {
+	for key := range translatedData {
 		fmt.Printf("%s, ", key)
 	}
 	fmt.Printf("\n")
 	log.Printf("[DEBUG i18n] Calling c.HTML with template: %s", templateName)
 
-	c.HTML(200, templateName, data)
+	c.HTML(200, templateName, translatedData)
 }

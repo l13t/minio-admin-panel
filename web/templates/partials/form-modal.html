@@ -1,0 +1,26 @@
+<!-- Generic Form Modal -->
+<div class="modal fade" id="{{.modalId}}" tabindex="-1" aria-labelledby="{{.modalId}}Label" aria-hidden="true">
+    <div class="modal-dialog {{if .modalSize}}modal-{{.modalSize}}{{end}}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{.modalId}}Label">
+                    {{if .modalIcon}}<i class="{{.modalIcon}} me-2"></i>{{end}}{{.modalTitle}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="{{.modalId}}Form" {{if .formAction}}action="{{.formAction}}" {{end}} {{if .formMethod}}method="{{.formMethod}}" {{else}}method="POST" {{end}}>
+                <div class="modal-body">
+                    {{.modalContent}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>{{if .cancelText}}{{.cancelText}}{{else}}Cancel{{end}}
+                    </button>
+                    <button type="submit" class="btn {{if .submitClass}}{{.submitClass}}{{else}}btn-primary{{end}}">
+                        {{if .submitIcon}}<i class="{{.submitIcon}} me-1"></i>{{end}}{{if .submitText}}{{.submitText}}{{else}}Save{{end}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{t .title}}</title>
+    <title>{{.title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -51,71 +51,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="text-center mb-4">
-                        <i class="fas fa-server logo"></i>
-                        <span class="logo ms-2">MinIO Admin</span>
-                    </div>
-
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">
-                                <i class="fas fa-tachometer-alt me-2"></i>{{t "navigation.dashboard"}}
-                            </a>
-                        </li>
-                        {{if .permissions.canListBuckets}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/buckets">
-                                <i class="fas fa-database me-2"></i>{{t "navigation.buckets"}}
-                            </a>
-                        </li>
-                        {{end}}
-                        {{if .permissions.canManageUsers}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users">
-                                <i class="fas fa-users me-2"></i>{{t "navigation.users"}}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/groups">
-                                <i class="fas fa-layer-group me-2"></i>{{t "navigation.groups"}}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/policies">
-                                <i class="fas fa-shield-alt me-2"></i>{{t "navigation.policies"}}
-                            </a>
-                        </li>
-                        {{end}}
-                        {{if .permissions.isAdmin}}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/settings">
-                                <i class="fas fa-cogs me-2"></i>{{t "navigation.settings"}}
-                            </a>
-                        </li>
-                        {{end}}
-                    </ul>
-
-                    <!-- User Info -->
-                    <div class="mt-3 pt-3 border-top border-secondary">
-                        <div class="text-center text-light">
-                            <div class="small">{{t "common.logged_in_as"}}:</div>
-                            <div class="fw-bold">{{.username}}</div>
-                            <div class="badge bg-primary mt-1">{{.policy_name}}</div>
-                        </div>
-                    </div>
-
-                    <div class="mt-auto pt-4">
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-outline-light w-100">
-                                <i class="fas fa-sign-out-alt me-2"></i>{{t "logout"}}
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
+            {{template "sidebar.html" .}}
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
@@ -123,11 +59,6 @@
                     <h1 class="h2">
                         <i class="fas fa-cogs me-2"></i>{{t "settings.title"}}
                     </h1>
-                    <!-- Language Switcher -->
-                    <div class="btn-group" role="group">
-                        <a href="?lang=en" class='btn btn-outline-secondary btn-sm {{if eq .language "en"}}active{{end}}'>EN</a>
-                        <a href="?lang=uk" class='btn btn-outline-secondary btn-sm {{if eq .language "uk"}}active{{end}}'>UK</a>
-                    </div>
                 </div>
 
                 <!-- Settings Content -->
@@ -171,43 +102,6 @@
                                                 <td>MIT License</td>
                                             </tr>
                                         </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- User Preferences -->
-                    <div class="settings-section">
-                        <div class="card settings-card">
-                            <div class="card-header">
-                                <h5 class="mb-0">
-                                    <i class="fas fa-user-cog me-2"></i>User Preferences
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label fw-bold">Theme</label>
-                                            <select class="form-select" disabled>
-                                                <option>Light (Default)</option>
-                                                <option>Dark (Coming Soon)</option>
-                                            </select>
-                                            <div class="form-text">Theme customization will be available in a future
-                                                update.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label fw-bold">Language</label>
-                                            <select class="form-select" disabled>
-                                                <option>English (Default)</option>
-                                                <option>Internationalization (Coming Soon)</option>
-                                            </select>
-                                            <div class="form-text">Multi-language support will be available in a future
-                                                update.</div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -292,11 +186,8 @@
                                         <div class="alert alert-warning">
                                             <h6><i class="fas fa-road me-2"></i>Upcoming Features</h6>
                                             <ul class="mb-0">
-                                                <li>Dark theme support</li>
-                                                <li>Multi-language interface</li>
                                                 <li>Advanced user session management</li>
                                                 <li>Audit logging and reporting</li>
-                                                <li>Backup and restore functionality</li>
                                             </ul>
                                         </div>
                                     </div>

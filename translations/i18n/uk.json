@@ -1,596 +1,638 @@
 {
-    "app_name": {
-        "other": "Панель адміністрування MinIO"
-    },
-    "buckets.actions": {
-        "other": "Дії"
-    },
-    "buckets.bucket_created": {
-        "other": "Відро успішно створено"
-    },
-    "buckets.bucket_deleted": {
-        "other": "Відро успішно видалено"
-    },
-    "buckets.bucket_name": {
-        "other": "Назва відра"
-    },
-    "buckets.confirm_delete": {
-        "other": "Ви впевнені, що хочете видалити це відро?"
-    },
-    "buckets.create_bucket": {
-        "other": "Створити відро"
-    },
-    "buckets.creation_date": {
-        "other": "Дата створення"
-    },
-    "buckets.delete": {
-        "other": "Видалити"
-    },
-    "buckets.objects": {
-        "other": "Об'єкти"
-    },
-    "buckets.policy": {
-        "other": "Політика"
-    },
-    "buckets.set_policy": {
-        "other": "Встановити політику"
-    },
-    "buckets.size": {
-        "other": "Розмір"
-    },
-    "buckets.title": {
-        "other": "Керування відрами"
-    },
-    "buckets.view_policy": {
-        "other": "Переглянути політику"
-    },
-    "common.back": {
-        "other": "Назад"
-    },
-    "common.cancel": {
-        "other": "Скасувати"
-    },
-    "common.clear": {
-        "other": "Очистити"
-    },
-    "common.close": {
-        "other": "Закрити"
-    },
-    "common.confirm": {
-        "other": "Підтвердити"
-    },
-    "common.create": {
-        "other": "Створити"
-    },
-    "common.delete": {
-        "other": "Видалити"
-    },
-    "common.description": {
-        "other": "Опис"
-    },
-    "common.deselect_all": {
-        "other": "Скасувати вибір"
-    },
-    "common.download": {
-        "other": "Завантажити"
-    },
-    "common.edit": {
-        "other": "Редагувати"
-    },
-    "common.error": {
-        "other": "Помилка"
-    },
-    "common.export": {
-        "other": "Експорт"
-    },
-    "common.filter": {
-        "other": "Фільтр"
-    },
-    "common.import": {
-        "other": "Імпорт"
-    },
-    "common.info": {
-        "other": "Інформація"
-    },
-    "common.loading": {
-        "other": "Завантаження..."
-    },
-    "common.logged_in_as": {
-        "other": "Увійшов як"
-    },
-    "common.name": {
-        "other": "Назва"
-    },
-    "common.next": {
-        "other": "Наступний"
-    },
-    "common.no": {
-        "other": "Ні"
-    },
-    "common.ok": {
-        "other": "ОК"
-    },
-    "common.previous": {
-        "other": "Попередній"
-    },
-    "common.refresh": {
-        "other": "Оновити"
-    },
-    "common.reset": {
-        "other": "Скинути"
-    },
-    "common.save": {
-        "other": "Зберегти"
-    },
-    "common.search": {
-        "other": "Пошук"
-    },
-    "common.select": {
-        "other": "Вибрати"
-    },
-    "common.select_all": {
-        "other": "Вибрати все"
-    },
-    "common.submit": {
-        "other": "Відправити"
-    },
-    "common.success": {
-        "other": "Успіх"
-    },
-    "common.upload": {
-        "other": "Вивантажити"
-    },
-    "common.warning": {
-        "other": "Попередження"
-    },
-    "common.yes": {
-        "other": "Так"
-    },
-    "dashboard.metrics": {
-        "other": "Метрики"
-    },
-    "dashboard.no_actions_available": {
-        "other": "Немає доступних дій з поточними дозволами"
-    },
-    "dashboard.no_recent_activities": {
-        "other": "Немає недавніх дій"
-    },
-    "dashboard.quick_actions": {
-        "other": "Швидкі дії"
-    },
-    "dashboard.recent_activity": {
-        "other": "Недавня активність"
-    },
-    "dashboard.server_info": {
-        "other": "Інформація про сервер"
-    },
-    "dashboard.storage_usage": {
-        "other": "Використання сховища"
-    },
-    "dashboard.title": {
-        "other": "Панель керування"
-    },
-    "dashboard.total_buckets": {
-        "other": "Всього відер"
-    },
-    "dashboard.total_groups": {
-        "other": "Всього груп"
-    },
-    "dashboard.total_users": {
-        "other": "Всього користувачів"
-    },
-    "dashboard.view_buckets": {
-        "other": "Переглянути відра"
-    },
-    "dashboard.welcome_message": {
-        "other": "Ласкаво просимо до панелі адміністрування MinIO"
-    },
-    "errors.connection_failed": {
-        "other": "Не вдалося підключитися"
-    },
-    "errors.forbidden": {
-        "other": "Доступ заборонено"
-    },
-    "errors.generic": {
-        "other": "Сталася помилка"
-    },
-    "errors.network": {
-        "other": "Помилка мережі"
-    },
-    "errors.not_found": {
-        "other": "Ресурс не знайдено"
-    },
-    "errors.server_error": {
-        "other": "Помилка сервера"
-    },
-    "errors.timeout": {
-        "other": "Час очікування минув"
-    },
-    "errors.unauthorized": {
-        "other": "Несанкціонований доступ"
-    },
-    "errors.validation": {
-        "other": "Помилка валідації"
-    },
-    "groups.actions": {
-        "other": "Дії"
-    },
-    "groups.add_members": {
-        "other": "Додати учасників"
-    },
-    "groups.confirm_delete": {
-        "other": "Ви впевнені, що хочете видалити цю групу?"
-    },
-    "groups.create_group": {
-        "other": "Створити групу"
-    },
-    "groups.delete": {
-        "other": "Видалити"
-    },
-    "groups.group_created": {
-        "other": "Групу успішно створено"
-    },
-    "groups.group_deleted": {
-        "other": "Групу успішно видалено"
-    },
-    "groups.group_name": {
-        "other": "Назва групи"
-    },
-    "groups.group_updated": {
-        "other": "Групу успішно оновлено"
-    },
-    "groups.members": {
-        "other": "Учасники"
-    },
-    "groups.policy": {
-        "other": "Політика"
-    },
-    "groups.remove_members": {
-        "other": "Видалити учасників"
-    },
-    "groups.set_policy": {
-        "other": "Встановити політику"
-    },
-    "groups.title": {
-        "other": "Керування групами"
-    },
-    "login": {
-        "other": "Увійти"
-    },
-    "login_page.heading": {
-        "other": "Панель адміністрування MinIO"
-    },
-    "login_page.login_button": {
-        "other": "Увійти"
-    },
-    "login_page.password_label": {
-        "other": "Пароль"
-    },
-    "login_page.password_placeholder": {
-        "other": "Введіть ваш пароль"
-    },
-    "login_page.title": {
-        "other": "Панель адміністрування MinIO - Вхід"
-    },
-    "login_page.username_label": {
-        "other": "Ім'я користувача"
-    },
-    "login_page.username_placeholder": {
-        "other": "Введіть ваше ім'я користувача"
-    },
-    "logout": {
-        "other": "Вийти"
-    },
-    "messages.changes_saved": {
-        "other": "Зміни успішно збережено"
-    },
-    "messages.connection_test_failed": {
-        "other": "Перевірка з'єднання не вдалася"
-    },
-    "messages.connection_test_successful": {
-        "other": "Перевірка з'єднання успішна!"
-    },
-    "messages.item_created": {
-        "other": "Елемент успішно створено"
-    },
-    "messages.item_deleted": {
-        "other": "Елемент успішно видалено"
-    },
-    "messages.item_updated": {
-        "other": "Елемент успішно оновлено"
-    },
-    "messages.loading_data": {
-        "other": "Завантаження даних..."
-    },
-    "messages.metrics_refreshed": {
-        "other": "Метрики успішно оновлено!"
-    },
-    "messages.no_data": {
-        "other": "Дані відсутні"
-    },
-    "messages.operation_successful": {
-        "other": "Операція успішно завершена"
-    },
-    "navigation.buckets": {
-        "other": "Відра"
-    },
-    "navigation.dashboard": {
-        "other": "Панель керування"
-    },
-    "navigation.groups": {
-        "other": "Групи"
-    },
-    "navigation.policies": {
-        "other": "Політики"
-    },
-    "navigation.settings": {
-        "other": "Налаштування"
-    },
-    "navigation.users": {
-        "other": "Користувачі"
-    },
-    "password": {
-        "other": "Пароль"
-    },
-    "policies.actions": {
-        "other": "Дії"
-    },
-    "policies.confirm_delete": {
-        "other": "Ви впевнені, що хочете видалити цю політику?"
-    },
-    "policies.create_policy": {
-        "other": "Створити політику"
-    },
-    "policies.delete": {
-        "other": "Видалити"
-    },
-    "policies.edit": {
-        "other": "Редагувати"
-    },
-    "policies.policy_created": {
-        "other": "Політику успішно створено"
-    },
-    "policies.policy_deleted": {
-        "other": "Політику успішно видалено"
-    },
-    "policies.policy_document": {
-        "other": "Документ політики"
-    },
-    "policies.policy_name": {
-        "other": "Назва політики"
-    },
-    "policies.policy_updated": {
-        "other": "Політику успішно оновлено"
-    },
-    "policies.title": {
-        "other": "Керування політиками"
-    },
-    "policies.view": {
-        "other": "Переглянути"
-    },
-    "service_accounts.access_key": {
-        "other": "Ключ доступу"
-    },
-    "service_accounts.actions": {
-        "other": "Дії"
-    },
-    "service_accounts.confirm_delete": {
-        "other": "Ви впевнені, що хочете видалити цей сервісний акаунт?"
-    },
-    "service_accounts.create_service_account": {
-        "other": "Створити сервісний акаунт"
-    },
-    "service_accounts.delete": {
-        "other": "Видалити"
-    },
-    "service_accounts.expiration": {
-        "other": "Термін дії"
-    },
-    "service_accounts.parent_user": {
-        "other": "Батьківський користувач"
-    },
-    "service_accounts.secret_key": {
-        "other": "Секретний ключ"
-    },
-    "service_accounts.service_account_created": {
-        "other": "Сервісний акаунт успішно створено"
-    },
-    "service_accounts.service_account_deleted": {
-        "other": "Сервісний акаунт успішно видалено"
-    },
-    "service_accounts.status": {
-        "other": "Статус"
-    },
-    "service_accounts.title": {
-        "other": "Керування сервісними акаунтами"
-    },
-    "service_accounts.view": {
-        "other": "Переглянути"
-    },
-    "settings.application": {
-        "other": "Додаток"
-    },
-    "settings.application_info": {
-        "other": "Інформація про додаток"
-    },
-    "settings.available_features": {
-        "other": "Доступні функції"
-    },
-    "settings.build_date": {
-        "other": "Дата збірки"
-    },
-    "settings.connected": {
-        "other": "Підключено"
-    },
-    "settings.connection_info_note": {
-        "other": "Налаштування з'єднання з MinIO конфігуруються через змінні середовища. Будь ласка, зверніться до файлу .env.example для доступних параметрів конфігурації."
-    },
-    "settings.connection_status": {
-        "other": "Статус з'єднання"
-    },
-    "settings.current_user": {
-        "other": "Поточний користувач"
-    },
-    "settings.dark_theme": {
-        "other": "Темна (Незабаром)"
-    },
-    "settings.documentation": {
-        "other": "Документація"
-    },
-    "settings.english": {
-        "other": "Англійська (За замовчуванням)"
-    },
-    "settings.feature_bucket_management": {
-        "other": "Керування відрами: Створення, видалення та керування політиками відер"
-    },
-    "settings.feature_group_management": {
-        "other": "Керування групами: Організація користувачів у групи зі спільними політиками"
-    },
-    "settings.feature_policy_management": {
-        "other": "Керування політиками: Створення та керування власними політиками доступу"
-    },
-    "settings.feature_realtime_metrics": {
-        "other": "Метрики в реальному часі: Моніторинг використання сховища та статусу сервера"
-    },
-    "settings.feature_service_accounts": {
-        "other": "Сервісні акаунти: Генерація сервісних акаунтів для доступу до API"
-    },
-    "settings.feature_user_management": {
-        "other": "Керування користувачами: Створення користувачів, керування обліковими даними та політиками"
-    },
-    "settings.github_repository": {
-        "other": "Репозиторій GitHub"
-    },
-    "settings.i18n_coming_soon": {
-        "other": "Інтернаціоналізація (Незабаром)"
-    },
-    "settings.i18n_note": {
-        "other": "Підтримка багатьох мов буде доступна у майбутньому оновленні."
-    },
-    "settings.language": {
-        "other": "Мова"
-    },
-    "settings.license": {
-        "other": "Ліцензія"
-    },
-    "settings.light_theme": {
-        "other": "Світла (За замовчуванням)"
-    },
-    "settings.minio_connection": {
-        "other": "З'єднання з MinIO"
-    },
-    "settings.refresh_metrics": {
-        "other": "Оновити метрики"
-    },
-    "settings.system_info": {
-        "other": "Системна інформація"
-    },
-    "settings.test_connection": {
-        "other": "Перевірити з'єднання"
-    },
-    "settings.theme": {
-        "other": "Тема"
-    },
-    "settings.theme_customization_note": {
-        "other": "Налаштування теми буде доступне у майбутньому оновленні."
-    },
-    "settings.title": {
-        "other": "Налаштування"
-    },
-    "settings.ukrainian": {
-        "other": "Українська"
-    },
-    "settings.upcoming_audit_log": {
-        "other": "Аудит логування та звітність"
-    },
-    "settings.upcoming_backup": {
-        "other": "Функціональність резервного копіювання та відновлення"
-    },
-    "settings.upcoming_dark_theme": {
-        "other": "Підтримка темної теми"
-    },
-    "settings.upcoming_features": {
-        "other": "Майбутні функції"
-    },
-    "settings.upcoming_multilang": {
-        "other": "Багатомовний інтерфейс"
-    },
-    "settings.upcoming_session_mgmt": {
-        "other": "Розширене керування сеансами користувачів"
-    },
-    "settings.user_policy": {
-        "other": "Політика користувача"
-    },
-    "settings.user_preferences": {
-        "other": "Користувацькі налаштування"
-    },
-    "settings.version": {
-        "other": "Версія"
-    },
-    "username": {
-        "other": "Ім'я користувача"
-    },
-    "users.access_key": {
-        "other": "Ключ доступу"
-    },
-    "users.actions": {
-        "other": "Дії"
-    },
-    "users.confirm_delete": {
-        "other": "Ви впевнені, що хочете видалити цього користувача?"
-    },
-    "users.create_user": {
-        "other": "Створити користувача"
-    },
-    "users.delete": {
-        "other": "Видалити"
-    },
-    "users.disable": {
-        "other": "Вимкнути"
-    },
-    "users.disabled": {
-        "other": "Вимкнено"
-    },
-    "users.edit": {
-        "other": "Редагувати"
-    },
-    "users.enable": {
-        "other": "Увімкнути"
-    },
-    "users.enabled": {
-        "other": "Увімкнено"
-    },
-    "users.groups": {
-        "other": "Групи"
-    },
-    "users.policy": {
-        "other": "Політика"
-    },
-    "users.secret_key": {
-        "other": "Секретний ключ"
-    },
-    "users.status": {
-        "other": "Статус"
-    },
-    "users.title": {
-        "other": "Керування користувачами"
-    },
-    "users.user_created": {
-        "other": "Користувача успішно створено"
-    },
-    "users.user_deleted": {
-        "other": "Користувача успішно видалено"
-    },
-    "users.user_name": {
-        "other": "Ім'я користувача"
-    },
-    "users.user_updated": {
-        "other": "Користувача успішно оновлено"
-    },
-    "users.view_details": {
-        "other": "Переглянути деталі"
-    },
-    "welcome": {
-        "other": "Ласкаво просимо"
-    }
+  "app_name": {
+    "other": "Панель адміністрування MinIO"
+  },
+  "buckets.actions": {
+    "other": "Дії"
+  },
+  "buckets.bucket_created": {
+    "other": "Відро успішно створено"
+  },
+  "buckets.bucket_deleted": {
+    "other": "Відро успішно видалено"
+  },
+  "buckets.bucket_name": {
+    "other": "Назва відра"
+  },
+  "buckets.confirm_delete": {
+    "other": "Ви впевнені, що хочете видалити це відро?"
+  },
+  "buckets.create_bucket": {
+    "other": "Створити відро"
+  },
+  "buckets.creation_date": {
+    "other": "Дата створення"
+  },
+  "buckets.delete": {
+    "other": "Видалити"
+  },
+  "buckets.objects": {
+    "other": "Об'єкти"
+  },
+  "buckets.policy": {
+    "other": "Політика"
+  },
+  "buckets.set_policy": {
+    "other": "Встановити політику"
+  },
+  "buckets.size": {
+    "other": "Розмір"
+  },
+  "buckets.title": {
+    "other": "Керування відрами"
+  },
+  "buckets.view_policy": {
+    "other": "Переглянути політику"
+  },
+  "common.back": {
+    "other": "Назад"
+  },
+  "common.cancel": {
+    "other": "Скасувати"
+  },
+  "common.clear": {
+    "other": "Очистити"
+  },
+  "common.close": {
+    "other": "Закрити"
+  },
+  "common.confirm": {
+    "other": "Підтвердити"
+  },
+  "common.create": {
+    "other": "Створити"
+  },
+  "common.delete": {
+    "other": "Видалити"
+  },
+  "common.description": {
+    "other": "Опис"
+  },
+  "common.deselect_all": {
+    "other": "Скасувати вибір"
+  },
+  "common.download": {
+    "other": "Завантажити"
+  },
+  "common.edit": {
+    "other": "Редагувати"
+  },
+  "common.error": {
+    "other": "Помилка"
+  },
+  "common.export": {
+    "other": "Експорт"
+  },
+  "common.filter": {
+    "other": "Фільтр"
+  },
+  "common.import": {
+    "other": "Імпорт"
+  },
+  "common.info": {
+    "other": "Інформація"
+  },
+  "common.loading": {
+    "other": "Завантаження..."
+  },
+  "common.logged_in_as": {
+    "other": "Увійшов як"
+  },
+  "common.name": {
+    "other": "Назва"
+  },
+  "common.next": {
+    "other": "Наступний"
+  },
+  "common.no": {
+    "other": "Ні"
+  },
+  "common.ok": {
+    "other": "ОК"
+  },
+  "common.previous": {
+    "other": "Попередній"
+  },
+  "common.refresh": {
+    "other": "Оновити"
+  },
+  "common.reset": {
+    "other": "Скинути"
+  },
+  "common.save": {
+    "other": "Зберегти"
+  },
+  "common.search": {
+    "other": "Пошук"
+  },
+  "common.select": {
+    "other": "Вибрати"
+  },
+  "common.select_all": {
+    "other": "Вибрати все"
+  },
+  "common.submit": {
+    "other": "Відправити"
+  },
+  "common.success": {
+    "other": "Успіх"
+  },
+  "common.upload": {
+    "other": "Вивантажити"
+  },
+  "common.warning": {
+    "other": "Попередження"
+  },
+  "common.yes": {
+    "other": "Так"
+  },
+  "dashboard.metrics": {
+    "other": "Метрики"
+  },
+  "dashboard.no_actions_available": {
+    "other": "Немає доступних дій з поточними дозволами"
+  },
+  "dashboard.no_recent_activities": {
+    "other": "Немає недавніх дій"
+  },
+  "dashboard.quick_actions": {
+    "other": "Швидкі дії"
+  },
+  "dashboard.recent_activity": {
+    "other": "Недавня активність"
+  },
+  "dashboard.server_info": {
+    "other": "Інформація про сервер"
+  },
+  "dashboard.storage_usage": {
+    "other": "Використання сховища"
+  },
+  "dashboard.title": {
+    "other": "Панель керування"
+  },
+  "dashboard.total_buckets": {
+    "other": "Всього відер"
+  },
+  "dashboard.total_groups": {
+    "other": "Всього груп"
+  },
+  "dashboard.total_users": {
+    "other": "Всього користувачів"
+  },
+  "dashboard.view_buckets": {
+    "other": "Переглянути відра"
+  },
+  "dashboard.welcome_message": {
+    "other": "Ласкаво просимо до панелі адміністрування MinIO"
+  },
+  "errors.connection_failed": {
+    "other": "Не вдалося підключитися"
+  },
+  "errors.forbidden": {
+    "other": "Доступ заборонено"
+  },
+  "errors.generic": {
+    "other": "Сталася помилка"
+  },
+  "errors.network": {
+    "other": "Помилка мережі"
+  },
+  "errors.not_found": {
+    "other": "Ресурс не знайдено"
+  },
+  "errors.server_error": {
+    "other": "Помилка сервера"
+  },
+  "errors.timeout": {
+    "other": "Час очікування минув"
+  },
+  "errors.unauthorized": {
+    "other": "Несанкціонований доступ"
+  },
+  "errors.validation": {
+    "other": "Помилка валідації"
+  },
+  "groups.actions": {
+    "other": "Дії"
+  },
+  "groups.add_members": {
+    "other": "Додати учасників"
+  },
+  "groups.confirm_delete": {
+    "other": "Ви впевнені, що хочете видалити цю групу?"
+  },
+  "groups.create_group": {
+    "other": "Створити групу"
+  },
+  "groups.create_first_group": {
+    "other": "Створіть свою першу групу для початку роботи"
+  },
+  "groups.delete": {
+    "other": "Видалити"
+  },
+  "groups.group_created": {
+    "other": "Групу успішно створено"
+  },
+  "groups.group_deleted": {
+    "other": "Групу успішно видалено"
+  },
+  "groups.group_name": {
+    "other": "Назва групи"
+  },
+  "groups.group_name_validation": {
+    "other": "Назва групи має бути від 3 до 63 символів, тільки літери, цифри, дефіси та підкреслення"
+  },
+  "groups.group_name_help": {
+    "other": "Назви груп мають бути унікальними та описовими"
+  },
+  "groups.group_updated": {
+    "other": "Групу успішно оновлено"
+  },
+  "groups.members": {
+    "other": "Учасники"
+  },
+  "groups.policy": {
+    "other": "Політика"
+  },
+  "groups.remove_members": {
+    "other": "Видалити учасників"
+  },
+  "groups.set_policy": {
+    "other": "Встановити політику"
+  },
+  "groups.title": {
+    "other": "Керування групами"
+  },
+  "groups.no_groups_found": {
+    "other": "Груп не знайдено"
+  },
+  "login": {
+    "other": "Увійти"
+  },
+  "login.error.invalid_credentials": {
+    "other": "Неправильне ім'я користувача або пароль"
+  },
+  "login.error.missing_credentials": {
+    "other": "Будь ласка, введіть ім'я користувача та пароль"
+  },
+  "login.error.token_generation": {
+    "other": "Не вдалося згенерувати токен сесії"
+  },
+  "login.title": {
+    "other": "Панель адміністрування MinIO - Вхід"
+  },
+  "login_page.heading": {
+    "other": "Панель адміністрування MinIO"
+  },
+  "login_page.login_button": {
+    "other": "Увійти"
+  },
+  "login_page.password_label": {
+    "other": "Пароль"
+  },
+  "login_page.password_placeholder": {
+    "other": "Введіть ваш пароль"
+  },
+  "login_page.title": {
+    "other": "Панель адміністрування MinIO - Вхід"
+  },
+  "login_page.username_label": {
+    "other": "Ім'я користувача"
+  },
+  "login_page.username_placeholder": {
+    "other": "Введіть ваше ім'я користувача"
+  },
+  "logout": {
+    "other": "Вийти"
+  },
+  "messages.changes_saved": {
+    "other": "Зміни успішно збережено"
+  },
+  "messages.connection_test_failed": {
+    "other": "Перевірка з'єднання не вдалася"
+  },
+  "messages.connection_test_successful": {
+    "other": "Перевірка з'єднання успішна!"
+  },
+  "messages.item_created": {
+    "other": "Елемент успішно створено"
+  },
+  "messages.item_deleted": {
+    "other": "Елемент успішно видалено"
+  },
+  "messages.item_updated": {
+    "other": "Елемент успішно оновлено"
+  },
+  "messages.loading_data": {
+    "other": "Завантаження даних..."
+  },
+  "messages.metrics_refreshed": {
+    "other": "Метрики успішно оновлено!"
+  },
+  "messages.no_data": {
+    "other": "Дані відсутні"
+  },
+  "messages.operation_successful": {
+    "other": "Операція успішно завершена"
+  },
+  "navigation.buckets": {
+    "other": "Відра"
+  },
+  "navigation.dashboard": {
+    "other": "Панель керування"
+  },
+  "navigation.groups": {
+    "other": "Групи"
+  },
+  "navigation.policies": {
+    "other": "Політики"
+  },
+  "navigation.settings": {
+    "other": "Налаштування"
+  },
+  "navigation.users": {
+    "other": "Користувачі"
+  },
+  "password": {
+    "other": "Пароль"
+  },
+  "policies.actions": {
+    "other": "Дії"
+  },
+  "policies.confirm_delete": {
+    "other": "Ви впевнені, що хочете видалити цю політику?"
+  },
+  "policies.create_policy": {
+    "other": "Створити політику"
+  },
+  "policies.create_first_policy": {
+    "other": "Створіть свою першу політику для початку роботи"
+  },
+  "policies.delete": {
+    "other": "Видалити"
+  },
+  "policies.edit": {
+    "other": "Редагувати"
+  },
+  "policies.policy_created": {
+    "other": "Політику успішно створено"
+  },
+  "policies.policy_deleted": {
+    "other": "Політику успішно видалено"
+  },
+  "policies.policy_document": {
+    "other": "Документ політики"
+  },
+  "policies.policy_name": {
+    "other": "Назва політики"
+  },
+  "policies.policy_name_validation": {
+    "other": "Назва політики може містити тільки літери, цифри, підкреслення та дефіси"
+  },
+  "policies.policy_updated": {
+    "other": "Політику успішно оновлено"
+  },
+  "policies.title": {
+    "other": "Керування політиками"
+  },
+  "policies.no_policies_found": {
+    "other": "Політик не знайдено"
+  },
+  "policies.view": {
+    "other": "Переглянути"
+  },
+  "service_accounts.access_key": {
+    "other": "Ключ доступу"
+  },
+  "service_accounts.actions": {
+    "other": "Дії"
+  },
+  "service_accounts.confirm_delete": {
+    "other": "Ви впевнені, що хочете видалити цей сервісний акаунт?"
+  },
+  "service_accounts.create_service_account": {
+    "other": "Створити сервісний акаунт"
+  },
+  "service_accounts.delete": {
+    "other": "Видалити"
+  },
+  "service_accounts.expiration": {
+    "other": "Термін дії"
+  },
+  "service_accounts.parent_user": {
+    "other": "Батьківський користувач"
+  },
+  "service_accounts.secret_key": {
+    "other": "Секретний ключ"
+  },
+  "service_accounts.service_account_created": {
+    "other": "Сервісний акаунт успішно створено"
+  },
+  "service_accounts.service_account_deleted": {
+    "other": "Сервісний акаунт успішно видалено"
+  },
+  "service_accounts.status": {
+    "other": "Статус"
+  },
+  "service_accounts.title": {
+    "other": "Керування сервісними акаунтами"
+  },
+  "service_accounts.view": {
+    "other": "Переглянути"
+  },
+  "settings.application": {
+    "other": "Додаток"
+  },
+  "settings.application_info": {
+    "other": "Інформація про додаток"
+  },
+  "settings.available_features": {
+    "other": "Доступні функції"
+  },
+  "settings.build_date": {
+    "other": "Дата збірки"
+  },
+  "settings.connected": {
+    "other": "Підключено"
+  },
+  "settings.connection_info_note": {
+    "other": "Налаштування з'єднання з MinIO конфігуруються через змінні середовища. Будь ласка, зверніться до файлу .env.example для доступних параметрів конфігурації."
+  },
+  "settings.connection_status": {
+    "other": "Статус з'єднання"
+  },
+  "settings.current_user": {
+    "other": "Поточний користувач"
+  },
+  "settings.dark_theme": {
+    "other": "Темна (Незабаром)"
+  },
+  "settings.documentation": {
+    "other": "Документація"
+  },
+  "settings.english": {
+    "other": "Англійська (За замовчуванням)"
+  },
+  "settings.feature_bucket_management": {
+    "other": "Керування відрами: Створення, видалення та керування політиками відер"
+  },
+  "settings.feature_group_management": {
+    "other": "Керування групами: Організація користувачів у групи зі спільними політиками"
+  },
+  "settings.feature_policy_management": {
+    "other": "Керування політиками: Створення та керування власними політиками доступу"
+  },
+  "settings.feature_realtime_metrics": {
+    "other": "Метрики в реальному часі: Моніторинг використання сховища та статусу сервера"
+  },
+  "settings.feature_service_accounts": {
+    "other": "Сервісні акаунти: Генерація сервісних акаунтів для доступу до API"
+  },
+  "settings.feature_user_management": {
+    "other": "Керування користувачами: Створення користувачів, керування обліковими даними та політиками"
+  },
+  "settings.github_repository": {
+    "other": "Репозиторій GitHub"
+  },
+  "settings.i18n_coming_soon": {
+    "other": "Інтернаціоналізація (Незабаром)"
+  },
+  "settings.i18n_note": {
+    "other": "Підтримка багатьох мов буде доступна у майбутньому оновленні."
+  },
+  "settings.language": {
+    "other": "Мова"
+  },
+  "language.selector.title": {
+    "other": "Мова"
+  },
+  "language.english": {
+    "other": "English"
+  },
+  "language.ukrainian": {
+    "other": "Українська"
+  },
+  "settings.license": {
+    "other": "Ліцензія"
+  },
+  "settings.light_theme": {
+    "other": "Світла (За замовчуванням)"
+  },
+  "settings.minio_connection": {
+    "other": "З'єднання з MinIO"
+  },
+  "settings.refresh_metrics": {
+    "other": "Оновити метрики"
+  },
+  "settings.system_info": {
+    "other": "Системна інформація"
+  },
+  "settings.test_connection": {
+    "other": "Перевірити з'єднання"
+  },
+  "settings.theme": {
+    "other": "Тема"
+  },
+  "settings.theme_customization_note": {
+    "other": "Налаштування теми буде доступне у майбутньому оновленні."
+  },
+  "settings.title": {
+    "other": "Налаштування"
+  },
+  "settings.ukrainian": {
+    "other": "Українська"
+  },
+  "settings.upcoming_audit_log": {
+    "other": "Аудит логування та звітність"
+  },
+  "settings.upcoming_backup": {
+    "other": "Функціональність резервного копіювання та відновлення"
+  },
+  "settings.upcoming_dark_theme": {
+    "other": "Підтримка темної теми"
+  },
+  "settings.upcoming_features": {
+    "other": "Майбутні функції"
+  },
+  "settings.upcoming_multilang": {
+    "other": "Багатомовний інтерфейс"
+  },
+  "settings.upcoming_session_mgmt": {
+    "other": "Розширене керування сеансами користувачів"
+  },
+  "settings.user_policy": {
+    "other": "Політика користувача"
+  },
+  "settings.user_preferences": {
+    "other": "Користувацькі налаштування"
+  },
+  "settings.version": {
+    "other": "Версія"
+  },
+  "username": {
+    "other": "Ім'я користувача"
+  },
+  "users.access_key": {
+    "other": "Ключ доступу"
+  },
+  "users.actions": {
+    "other": "Дії"
+  },
+  "users.confirm_delete": {
+    "other": "Ви впевнені, що хочете видалити цього користувача?"
+  },
+  "users.create_user": {
+    "other": "Створити користувача"
+  },
+  "users.delete": {
+    "other": "Видалити"
+  },
+  "users.disable": {
+    "other": "Вимкнути"
+  },
+  "users.disabled": {
+    "other": "Вимкнено"
+  },
+  "users.edit": {
+    "other": "Редагувати"
+  },
+  "users.enable": {
+    "other": "Увімкнути"
+  },
+  "users.enabled": {
+    "other": "Увімкнено"
+  },
+  "users.groups": {
+    "other": "Групи"
+  },
+  "users.policy": {
+    "other": "Політика"
+  },
+  "users.secret_key": {
+    "other": "Секретний ключ"
+  },
+  "users.status": {
+    "other": "Статус"
+  },
+  "users.title": {
+    "other": "Керування користувачами"
+  },
+  "users.user_created": {
+    "other": "Користувача успішно створено"
+  },
+  "users.user_deleted": {
+    "other": "Користувача успішно видалено"
+  },
+  "users.user_name": {
+    "other": "Ім'я користувача"
+  },
+  "users.user_updated": {
+    "other": "Користувача успішно оновлено"
+  },
+  "users.view_details": {
+    "other": "Переглянути деталі"
+  },
+  "welcome": {
+    "other": "Ласкаво просимо"
+  }
 }

@@ -1,26 +1,26 @@
-# GoReleaser compatible Dockerfile
-FROM alpine:3.19
+FROM golang:1.24 AS builder
 
-# Install ca-certificates for HTTPS requests
-RUN apk --no-cache add ca-certificates=20240705-r0
+# Set the working directory
+WORKDIR /app
 
-WORKDIR /root/
+# Copy the Go modules manifests
+COPY go.mod go.sum ./
+# Download dependencies
+RUN go mod download
+# Copy the source code
+COPY . .
 
-# Copy the binary from GoReleaser
-COPY minio-admin-panel .
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o minio-admin-panel .
 
-# Copy web assets
-COPY web ./web
+# Use a minimal base image for the final binary
+FROM scratch
 
-# Copy environment example
-COPY .env.example .
+COPY --from=builder /app/minio-admin-panel /minio-admin-panel
+COPY --from=builder /app/translations /translations
+COPY --from=builder /app/web /web
 
-# Expose port
+# Set the entrypoint for the container
+ENTRYPOINT ["/minio-admin-panel"]
+# Expose the port the app runs on
 EXPOSE 8080
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
-
-# Run the binary
-CMD ["./minio-admin-panel"]
