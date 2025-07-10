@@ -295,3 +295,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [MinIO](https://min.io/) - High Performance Object Storage
 - [Gin](https://gin-gonic.com/) - Go Web Framework
 - [Bootstrap](https://getbootstrap.com/) - CSS Framework
+
+[![Crowdin](https://badges.crowdin.net/minio-admin-panel/localized.svg)](https://crowdin.com)
