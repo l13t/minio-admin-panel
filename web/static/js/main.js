@@ -61,7 +61,7 @@ const Utils = {
     async copyToClipboard(text) {
         try {
             await navigator.clipboard.writeText(text);
-            this.showToast('Copied to clipboard!', 'success');
+            this.showToast(this.t('ui.copied_to_clipboard'), 'success');
         } catch (err) {
             console.error('Failed to copy: ', err);
             this.showToast('Failed to copy to clipboard', 'danger');

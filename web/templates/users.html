@@ -86,7 +86,7 @@
                             <i class="fas fa-download me-2"></i>{{t "common.export"}}
                         </button>
                         <button type="button" class="btn btn-outline-secondary me-2" onclick="toggleView()">
-                            <i class="fas fa-eye me-2"></i>Toggle View
+                            <i class="fas fa-eye me-2"></i>{{t "ui.toggle_view"}}
                         </button>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
                             <i class="fas fa-user-plus me-2"></i>{{t "users.create_user"}}
@@ -97,8 +97,7 @@
                 <!-- View Toggle Info -->
                 <div class="alert alert-info" id="viewInfo">
                     <i class="fas fa-info-circle me-2"></i>
-                    <span id="viewInfoText">Showing detailed user information. Click "Toggle View" to see access keys
-                        only.</span>
+                    <span id="viewInfoText">{{t "info.showing_detailed_view"}}</span>
                 </div>
 
                 <!-- Users Table -->
@@ -108,11 +107,11 @@
                             <table class="table table-hover" id="usersTable">
                                 <thead id="tableHeader">
                                     <tr>
-                                        <th>Access Key</th>
-                                        <th>Status</th>
-                                        <th>Policy</th>
-                                        <th>Groups</th>
-                                        <th>Actions</th>
+                                        <th>{{t "users.access_key"}}</th>
+                                        <th>{{t "users.status"}}</th>
+                                        <th>{{t "users.policy"}}</th>
+                                        <th>{{t "users.groups"}}</th>
+                                        <th>{{t "users.actions"}}</th>
                                     </tr>
                                 </thead>
                                 <tbody id="usersTableBody">
@@ -122,7 +121,7 @@
                                             <div class="d-flex align-items-center">
                                                 <i class="fas fa-key me-2 text-primary"></i>
                                                 <code class="user-access-key me-2">{{.AccessKey}}</code>
-                                                <button class="btn btn-sm btn-outline-secondary" onclick="copyAccessKey('{{.AccessKey}}')" title="Copy Access Key">
+                                                <button class="btn btn-sm btn-outline-secondary" onclick="copyAccessKey('{{.AccessKey}}')" title="{{t " tooltip.copy_access_key"}}">
                                                     <i class="fas fa-copy"></i>
                                                 </button>
                                             </div>
@@ -142,43 +141,43 @@
                                             {{if .PolicyName}}
                                             <span class="badge bg-info">{{.PolicyName}}</span>
                                             {{else}}
-                                            <span class="text-muted">No policy</span>
+                                            <span class="text-muted">{{t "ui.no_policy"}}</span>
                                             {{end}}
                                         </td>
                                         <td class="user-groups">
                                             {{range .MemberOf}}
                                             <span class="badge bg-secondary me-1">{{.}}</span>
                                             {{else}}
-                                            <span class="text-muted">No groups</span>
+                                            <span class="text-muted">{{t "ui.no_groups"}}</span>
                                             {{end}}
                                         </td>
                                         <td class="user-actions">
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-sm btn-outline-secondary" onclick="viewUserDetails('{{.AccessKey}}')" title="View Details">
+                                                <button class="btn btn-sm btn-outline-secondary" onclick="viewUserDetails('{{.AccessKey}}')" title="{{t " tooltip.view_details"}}">
                                                     <i class="fas fa-info-circle"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-info" onclick="editUser('{{.AccessKey}}')" title="Edit Credentials">
+                                                <button class="btn btn-sm btn-outline-info" onclick="editUser('{{.AccessKey}}')" title="{{t " tooltip.edit_credentials"}}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-primary" onclick="editUserPolicy('{{.AccessKey}}')" title="Edit Policy">
+                                                <button class="btn btn-sm btn-outline-primary" onclick="editUserPolicy('{{.AccessKey}}')" title="{{t " tooltip.edit_policy"}}">
                                                     <i class="fas fa-shield-alt"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-warning" onclick="editUserGroups('{{.AccessKey}}')" title="Edit Groups">
+                                                <button class="btn btn-sm btn-outline-warning" onclick="editUserGroups('{{.AccessKey}}')" title="{{t " tooltip.edit_groups"}}">
                                                     <i class="fas fa-layer-group"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-info" onclick="manageServiceAccounts('{{.AccessKey}}')" title="Service Accounts">
+                                                <button class="btn btn-sm btn-outline-info" onclick="manageServiceAccounts('{{.AccessKey}}')" title="{{t " tooltip.service_accounts"}}">
                                                     <i class="fas fa-key"></i>
                                                 </button>
                                                 {{if eq .Status "enabled"}}
-                                                <button class="btn btn-sm btn-outline-warning" onclick="toggleUserStatus('{{.AccessKey}}', false)" title="Disable User">
+                                                <button class="btn btn-sm btn-outline-warning" onclick="toggleUserStatus('{{.AccessKey}}', false)" title="{{t " tooltip.disable_user"}}">
                                                     <i class="fas fa-user-slash"></i>
                                                 </button>
                                                 {{else}}
-                                                <button class="btn btn-sm btn-outline-success" onclick="toggleUserStatus('{{.AccessKey}}', true)" title="Enable User">
+                                                <button class="btn btn-sm btn-outline-success" onclick="toggleUserStatus('{{.AccessKey}}', true)" title="{{t " tooltip.enable_user"}}">
                                                     <i class="fas fa-user-check"></i>
                                                 </button>
                                                 {{end}}
-                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('{{.AccessKey}}')" title="Delete User">
+                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('{{.AccessKey}}')" title="{{t " tooltip.delete_user"}}">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
@@ -199,29 +198,29 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create New User</h5>
+                    <h5 class="modal-title">{{t "modal.create_new_user"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="createUserForm">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="userAccessKey" class="form-label">Access Key</label>
+                            <label for="userAccessKey" class="form-label">{{t "users.access_key"}}</label>
                             <input type="text" class="form-control" id="userAccessKey" name="access_key" required minlength="3" maxlength="20">
                             <div class="form-text">3-20 characters, alphanumeric</div>
                         </div>
                         <div class="mb-3">
-                            <label for="userSecretKey" class="form-label">Secret Key</label>
+                            <label for="userSecretKey" class="form-label">{{t "users.secret_key"}}</label>
                             <input type="password" class="form-control" id="userSecretKey" name="secret_key" required minlength="8">
                             <div class="form-text">Minimum 8 characters</div>
                         </div>
                         <div class="mb-3">
-                            <label for="confirmSecretKey" class="form-label">Confirm Secret Key</label>
+                            <label for="confirmSecretKey" class="form-label">{{t "form.confirm_secret_key"}}</label>
                             <input type="password" class="form-control" id="confirmSecretKey" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Create User</button>
+                        <button type="submit" class="btn btn-primary">{{t "ui.create_user"}}</button>
                     </div>
                 </form>
             </div>
@@ -233,13 +232,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">User Details</h5>
+                    <h5 class="modal-title">{{t "ui.user_details"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Basic Information</h6>
+                            <h6>{{t "ui.basic_information"}}</h6>
                             <table class="table table-sm">
                                 <tr>
                                     <td><strong>Access Key:</strong></td>
@@ -264,7 +263,7 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <h6>Actions</h6>
+                            <h6>{{t "users.actions"}}</h6>
                             <div class="d-grid gap-2">
                                 <button class="btn btn-outline-info" onclick="editUserFromDetails()">
                                     <i class="fas fa-edit me-2"></i>Edit Credentials
@@ -294,7 +293,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit User Credentials</h5>
+                    <h5 class="modal-title">{{t "ui.edit_user_credentials"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="editUserForm">
@@ -304,27 +303,27 @@
                         <!-- Current Credentials Section -->
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h6 class="mb-0">Current Credentials</h6>
+                                <h6 class="mb-0">{{t "ui.current_credentials"}}</h6>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="editUserAccessKeyDisplay" class="form-label">Access Key</label>
+                                    <label for="editUserAccessKeyDisplay" class="form-label">{{t "users.access_key"}}</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="editUserAccessKeyDisplay" readonly>
-                                        <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('editUserAccessKeyDisplay')" title="Copy Access Key">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('editUserAccessKeyDisplay')" title="{{t " tooltip.copy_access_key"}}">
                                             <i class="fas fa-copy"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editUserCurrentSecretKey" class="form-label">Current Secret Key</label>
+                                    <label for="editUserCurrentSecretKey" class="form-label">{{t "ui.current_secret_key"}}</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="editUserCurrentSecretKey" readonly>
-                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserCurrentSecretKey')" title="Toggle Visibility">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserCurrentSecretKey')" title="{{t " tooltip.toggle_visibility"}}">
                                             <i class="fas fa-eye" id="editUserCurrentSecretKeyIcon"></i>
                                         </button>
                                     </div>
-                                    <div class="form-text text-muted">Secret key is masked for security</div>
+                                    <div class="form-text text-muted">{{t "ui.secret_key_masked"}}</div>
                                 </div>
                                 <div class="mb-0">
                                     <small class="text-muted">
@@ -339,17 +338,17 @@
                         <!-- New Credentials Section -->
                         <div class="card">
                             <div class="card-header">
-                                <h6 class="mb-0">Update Secret Key</h6>
+                                <h6 class="mb-0">{{t "ui.update_secret_key"}}</h6>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="editUserSecretKey" class="form-label">New Secret Key</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="editUserSecretKey" name="secret_key" minlength="8" placeholder="Enter new secret key">
-                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserSecretKey')" title="Toggle Visibility">
+                                        <input type="password" class="form-control" id="editUserSecretKey" name="secret_key" minlength="8" placeholder="{{t " form.enter_new_secret_key"}}">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editUserSecretKey')" title="{{t " tooltip.toggle_visibility"}}">
                                             <i class="fas fa-eye" id="editUserSecretKeyIcon"></i>
                                         </button>
-                                        <button class="btn btn-outline-info" type="button" onclick="generateSecretKey()" title="Generate Random Secret Key">
+                                        <button class="btn btn-outline-info" type="button" onclick="generateSecretKey()" title="{{t " tooltip.generate_random_secret_key"}}">
                                             <i class="fas fa-random"></i>
                                         </button>
                                     </div>
@@ -360,7 +359,7 @@
                                     <label for="editConfirmSecretKey" class="form-label">Confirm New Secret Key</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="editConfirmSecretKey">
-                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editConfirmSecretKey')" title="Toggle Visibility">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="toggleSecretKeyVisibility('editConfirmSecretKey')" title="{{t " tooltip.toggle_visibility"}}">
                                             <i class="fas fa-eye" id="editConfirmSecretKeyIcon"></i>
                                         </button>
                                     </div>
@@ -469,18 +468,18 @@
                     <!-- Create Service Account Form (initially hidden) -->
                     <div id="createServiceAccountForm" class="card mb-3" style="display: none;">
                         <div class="card-header">
-                            <h6 class="mb-0">Create New Service Account</h6>
+                            <h6 class="mb-0">{{t "modal.create_new_service_account"}}</h6>
                         </div>
                         <div class="card-body">
                             <form id="createServiceAccountFormElement">
                                 <div class="mb-3">
                                     <label for="serviceAccountName" class="form-label">Name (optional)</label>
-                                    <input type="text" class="form-control" id="serviceAccountName" name="name" placeholder="Service account name">
+                                    <input type="text" class="form-control" id="serviceAccountName" name="name" placeholder="{{t " form.service_account_name"}}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="serviceAccountDescription" class="form-label">Description
                                         (optional)</label>
-                                    <textarea class="form-control" id="serviceAccountDescription" name="description" rows="2" placeholder="Service account description"></textarea>
+                                    <textarea class="form-control" id="serviceAccountDescription" name="description" rows="2" placeholder="{{t " form.service_account_description"}}"></textarea>
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-success">
@@ -494,7 +493,7 @@
 
                     <!-- Service Account Credentials Display (initially hidden) -->
                     <div id="serviceAccountCredentials" class="alert alert-success" style="display: none;">
-                        <h6><i class="fas fa-key me-2"></i>Service Account Created Successfully</h6>
+                        <h6><i class="fas fa-key me-2"></i>{{t "success.service_account_created"}}</h6>
                         <p class="mb-2"><strong>Access Key:</strong> <code id="newServiceAccountAccessKey"></code>
                             <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard(document.getElementById('newServiceAccountAccessKey').textContent)">
                                 <i class="fas fa-copy"></i>
@@ -528,6 +527,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Translation variables for JavaScript
+        const translations = {
+            copyAccessKey: '{{t "tooltip.copy_access_key"}}',
+            deleteServiceAccount: '{{t "tooltip.delete_service_account"}}',
+            copied: '{{t "ui.copied_to_clipboard"}}',
+            name: '{{t "common.name"}}',
+            description: '{{t "common.description"}}',
+            parentUser: '{{t "service_accounts.parent_user"}}'
+        };
+
         let isAccessKeyOnlyView = false;
 
         // Copy access key to clipboard
@@ -541,11 +550,11 @@
                 const originalClass = icon.className;
 
                 icon.className = 'fas fa-check copy-success';
-                button.title = 'Copied!';
+                button.title = translations.copied;
 
                 setTimeout(() => {
                     icon.className = originalClass;
-                    button.title = 'Copy Access Key';
+                    button.title = translations.copyAccessKey;
                 }, 2000);
 
                 console.log(`Access key copied: ${accessKey}`);
@@ -573,7 +582,7 @@
 
             if (isAccessKeyOnlyView) {
                 table.classList.add('access-key-only-view');
-                viewInfo.textContent = 'Showing access keys only. Click "Toggle View" to see full user information.';
+                viewInfo.textContent = '{{t "info.showing_keys_view"}}';
 
                 // Update table header
                 const header = document.getElementById('tableHeader');
@@ -585,7 +594,7 @@
                 `;
             } else {
                 table.classList.remove('access-key-only-view');
-                viewInfo.textContent = 'Showing detailed user information. Click "Toggle View" to see access keys only.';
+                viewInfo.textContent = '{{t "info.showing_detailed_view"}}';
 
                 // Restore full table header
                 const header = document.getElementById('tableHeader');
@@ -914,7 +923,7 @@
                         // Close modal and reload page
                         const modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
                         modal.hide();
-                        alert('User credentials updated successfully');
+                        alert('{{t "success.user_credentials_updated"}}');
                         location.reload();
                     } else {
                         alert('Error: ' + result.error);
@@ -1174,15 +1183,15 @@
                                                     <i class="${statusIcon}"></i> ${sa.status}
                                                 </span>
                                             </h6>
-                                            ${sa.name ? `<p class="mb-1"><strong>Name:</strong> ${sa.name}</p>` : ''}
-                                            ${sa.description ? `<p class="mb-1"><strong>Description:</strong> ${sa.description}</p>` : ''}
-                                            <small class="text-muted">Parent User: ${sa.parent_user}</small>
+                                            ${sa.name ? `<p class="mb-1"><strong>${translations.name}:</strong> ${sa.name}</p>` : ''}
+                                            ${sa.description ? `<p class="mb-1"><strong>${translations.description}:</strong> ${sa.description}</p>` : ''}
+                                            <small class="text-muted">${translations.parentUser}: ${sa.parent_user}</small>
                                         </div>
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('${sa.access_key}')" title="Copy Access Key">
+                                            <button class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('${sa.access_key}')" title="${translations.copyAccessKey}">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteServiceAccount('${sa.access_key}')" title="Delete Service Account">
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteServiceAccount('${sa.access_key}')" title="${translations.deleteServiceAccount}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>

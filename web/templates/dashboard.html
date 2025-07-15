@@ -195,6 +195,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Translation variables for JavaScript
+        const translations = {
+            loadingStorage: '{{t "ui.loading_storage"}}'
+        };
+
         // Load dashboard data
         async function loadDashboardData() {
             try {
@@ -224,7 +229,7 @@
 
                 // Load storage usage
                 console.log('Loading storage usage...');
-                document.getElementById('storage-used').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                document.getElementById('storage-used').innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations.loadingStorage}`;
 
                 const storageResponse = await fetch('/api/storage-usage', {
                     headers: { 'Accept': 'application/json' }

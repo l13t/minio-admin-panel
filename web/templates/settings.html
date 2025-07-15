@@ -77,7 +77,7 @@
                                         <table class="table table-sm">
                                             <tr>
                                                 <td class="fw-bold">Application:</td>
-                                                <td>MinIO Admin Panel</td>
+                                                <td>{{t "app_name"}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Version:</td>
@@ -99,7 +99,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">License:</td>
-                                                <td>MIT License</td>
+                                                <td>{{t "app.license"}}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -128,7 +128,7 @@
                                         <table class="table table-sm">
                                             <tr>
                                                 <td class="fw-bold">Connection Status:</td>
-                                                <td><span class="badge bg-success">Connected</span></td>
+                                                <td><span class="badge bg-success">{{t "ui.connected"}}</span></td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Current User:</td>
@@ -167,27 +167,21 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-secondary">
-                                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Available Features</h6>
+                                            <h6><i class="fas fa-exclamation-triangle me-2"></i>{{t "features.available"}}</h6>
                                             <ul class="mb-0">
-                                                <li><strong>Bucket Management:</strong> Create, delete, and manage
-                                                    bucket policies</li>
-                                                <li><strong>User Management:</strong> Create users, manage credentials
-                                                    and policies</li>
-                                                <li><strong>Group Management:</strong> Organize users into groups with
-                                                    shared policies</li>
-                                                <li><strong>Policy Management:</strong> Create and manage custom access
-                                                    policies</li>
-                                                <li><strong>Service Accounts:</strong> Generate service accounts for API
-                                                    access</li>
-                                                <li><strong>Real-time Metrics:</strong> Monitor storage usage and server
-                                                    status</li>
+                                                <li><strong>{{t "features.bucket_management"}}</strong></li>
+                                                <li><strong>{{t "features.user_management"}}</strong></li>
+                                                <li><strong>{{t "features.group_management"}}</strong></li>
+                                                <li><strong>{{t "features.policy_management"}}</strong></li>
+                                                <li><strong>{{t "features.service_accounts"}}</strong></li>
+                                                <li><strong>{{t "features.realtime_metrics"}}</strong></li>
                                             </ul>
                                         </div>
                                         <div class="alert alert-warning">
-                                            <h6><i class="fas fa-road me-2"></i>Upcoming Features</h6>
+                                            <h6><i class="fas fa-road me-2"></i>{{t "features.upcoming"}}</h6>
                                             <ul class="mb-0">
-                                                <li>Advanced user session management</li>
-                                                <li>Audit logging and reporting</li>
+                                                <li>{{t "features.session_management"}}</li>
+                                                <li>{{t "features.audit_logging"}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -216,7 +210,7 @@
                     if (data.error) {
                         alert('Connection test failed: ' + data.error);
                     } else {
-                        alert('Connection test successful!');
+                        alert('{{t "success.connection_test"}}');
                     }
                 })
                 .catch(error => {
@@ -239,7 +233,7 @@
             fetch('/api/metrics')
                 .then(response => response.json())
                 .then(data => {
-                    alert('Metrics refreshed successfully!');
+                    alert('{{t "success.metrics_refreshed"}}');
                 })
                 .catch(error => {
                     alert('Failed to refresh metrics: ' + error.message);

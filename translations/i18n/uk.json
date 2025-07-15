@@ -631,5 +631,239 @@
   },
   "welcome": {
     "other": "Ласкаво просимо"
+  },
+  "modal.create_new_bucket": {
+    "other": "Створити новий контейнер"
+  },
+  "modal.create_new_user": {
+    "other": "Створити нового користувача"
+  },
+  "modal.create_new_group": {
+    "other": "Створити нову групу"
+  },
+  "modal.create_new_policy": {
+    "other": "Створити нову політику"
+  },
+  "modal.create_new_service_account": {
+    "other": "Створити новий сервісний обліковий запис"
+  },
+  "modal.edit_group_members": {
+    "other": "Редагувати учасників групи"
+  },
+  "modal.edit_group_policy": {
+    "other": "Редагувати політику групи"
+  },
+  "form.current_members": {
+    "other": "Поточні учасники"
+  },
+  "form.group_name": {
+    "other": "Назва групи"
+  },
+  "form.enter_usernames_comma": {
+    "other": "Введіть імена користувачів через кому"
+  },
+  "ui.toggle_view": {
+    "other": "Переключити вигляд"
+  },
+  "ui.loading": {
+    "other": "Завантаження..."
+  },
+  "ui.connected": {
+    "other": "Підключено"
+  },
+  "success.connection_test": {
+    "other": "Тест підключення виконано успішно!"
+  },
+  "success.metrics_refreshed": {
+    "other": "Метрики оновлено успішно!"
+  },
+  "success.policy_deleted": {
+    "other": "Політику видалено успішно"
+  },
+  "success.policy_created": {
+    "other": "Політику створено успішно"
+  },
+  "success.policy_updated": {
+    "other": "Політику оновлено успішно"
+  },
+  "success.bucket_policy_updated": {
+    "other": "Політику контейнера оновлено успішно"
+  },
+  "success.user_credentials_updated": {
+    "other": "Облікові дані користувача оновлено успішно"
+  },
+  "success.service_account_created": {
+    "other": "Сервісний обліковий запис створено успішно"
+  },
+  "info.showing_detailed_view": {
+    "other": "Показано детальну інформацію про користувача. Натисніть \"Переключити вигляд\" для перегляду тільки ключів доступу."
+  },
+  "info.showing_keys_view": {
+    "other": "Показано тільки ключі доступу. Натисніть \"Переключити вигляд\" для перегляду повної інформації про користувача."
+  },
+  "app.name": {
+    "other": "MinIO Адмін"
+  },
+  "app.license": {
+    "other": "MIT Ліцензія"
+  },
+  "features.available": {
+    "other": "Доступні функції"
+  },
+  "features.upcoming": {
+    "other": "Майбутні функції"
+  },
+  "features.bucket_management": {
+    "other": "Управління контейнерами: Створення, видалення та управління політиками контейнерів"
+  },
+  "features.user_management": {
+    "other": "Управління користувачами: Створення користувачів, управління обліковими даними та політиками"
+  },
+  "features.group_management": {
+    "other": "Управління групами: Організація користувачів у групи із спільними політиками"
+  },
+  "features.policy_management": {
+    "other": "Управління політиками: Створення та управління користувацькими політиками доступу"
+  },
+  "features.service_accounts": {
+    "other": "Сервісні облікові записи: Генерація сервісних облікових записів для API доступу"
+  },
+  "features.realtime_metrics": {
+    "other": "Метрики в реальному часі: Моніторинг використання сховища та статусу сервера"
+  },
+  "features.dark_theme": {
+    "other": "Підтримка темної теми"
+  },
+  "features.multilang": {
+    "other": "Багатомовний інтерфейс"
+  },
+  "features.session_management": {
+    "other": "Розширене управління сеансами користувачів"
+  },
+  "features.audit_logging": {
+    "other": "Аудит та звітність"
+  },
+  "features.backup_restore": {
+    "other": "Функціональність резервного копіювання та відновлення"
+  },
+  "list.group_list": {
+    "other": "Список груп"
+  },
+  "form.bucket_name": {
+    "other": "Назва контейнера"
+  },
+  "form.bucket_policy_json": {
+    "other": "Політика контейнера (JSON)"
+  },
+  "form.confirm_secret_key": {
+    "other": "Підтвердити секретний ключ"
+  },
+  "form.service_account_name": {
+    "other": "Назва сервісного облікового запису"
+  },
+  "form.service_account_description": {
+    "other": "Опис сервісного облікового запису"
+  },
+  "form.enter_new_secret_key": {
+    "other": "Введіть новий секретний ключ"
+  },
+  "form.policy_document_json": {
+    "other": "Документ політики (JSON)"
+  },
+  "form.edit_policy_name": {
+    "other": "Редагувати назву політики"
+  },
+  "ui.update_policy": {
+    "other": "Оновити політику"
+  },
+  "ui.view_policy": {
+    "other": "Переглянути політику"
+  },
+  "ui.edit_bucket_policy": {
+    "other": "Редагувати політику контейнера"
+  },
+  "ui.edit_policy": {
+    "other": "Редагувати політику"
+  },
+  "ui.copied_to_clipboard": {
+    "other": "Скопійовано в буфер обміну!"
+  },
+  "tooltip.copy_access_key": {
+    "other": "Копіювати ключ доступу"
+  },
+  "tooltip.view_details": {
+    "other": "Переглянути деталі"
+  },
+  "tooltip.edit_credentials": {
+    "other": "Редагувати облікові дані"
+  },
+  "tooltip.edit_policy": {
+    "other": "Редагувати політику"
+  },
+  "tooltip.edit_groups": {
+    "other": "Редагувати групи"
+  },
+  "tooltip.service_accounts": {
+    "other": "Сервісні облікові записи"
+  },
+  "tooltip.disable_user": {
+    "other": "Відключити користувача"
+  },
+  "tooltip.enable_user": {
+    "other": "Увімкнути користувача"
+  },
+  "tooltip.delete_user": {
+    "other": "Видалити користувача"
+  },
+  "tooltip.toggle_visibility": {
+    "other": "Переключити видимість"
+  },
+  "tooltip.generate_random_secret_key": {
+    "other": "Генерувати випадковий секретний ключ"
+  },
+  "tooltip.view_policy": {
+    "other": "Переглянути політику"
+  },
+  "tooltip.delete_policy": {
+    "other": "Видалити політику"
+  },
+  "tooltip.delete_service_account": {
+    "other": "Видалити сервісний обліковий запис"
+  },
+  "ui.no_policy": {
+    "other": "Немає політики"
+  },
+  "ui.no_groups": {
+    "other": "Немає груп"
+  },
+  "ui.create_bucket": {
+    "other": "Створити контейнер"
+  },
+  "ui.create_user": {
+    "other": "Створити користувача"
+  },
+  "ui.loading_storage": {
+    "other": "Завантаження..."
+  },
+  "ui.user_details": {
+    "other": "Деталі користувача"
+  },
+  "ui.basic_information": {
+    "other": "Основна інформація"
+  },
+  "ui.current_credentials": {
+    "other": "Поточні облікові дані"
+  },
+  "ui.current_secret_key": {
+    "other": "Поточний секретний ключ"
+  },
+  "ui.update_secret_key": {
+    "other": "Оновити секретний ключ"
+  },
+  "ui.edit_user_credentials": {
+    "other": "Редагувати облікові дані користувача"
+  },
+  "ui.secret_key_masked": {
+    "other": "Секретний ключ приховано з міркувань безпеки"
   }
 }

@@ -95,13 +95,13 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <button class="btn btn-sm btn-outline-info" onclick="viewPolicy('{{.name}}')" title="View Policy">
+                                                        <button class="btn btn-sm btn-outline-info" onclick="viewPolicy('{{.name}}')" title="{{t " tooltip.view_policy"}}">
                                                             <i class="fas fa-eye"></i>
                                                         </button>
-                                                        <button class="btn btn-sm btn-outline-primary" onclick="editPolicy('{{.name}}')" title="Edit Policy">
+                                                        <button class="btn btn-sm btn-outline-primary" onclick="editPolicy('{{.name}}')" title="{{t " tooltip.edit_policy"}}">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-sm btn-outline-danger" onclick="deletePolicy('{{.name}}')" title="Delete Policy">
+                                                        <button class="btn btn-sm btn-outline-danger" onclick="deletePolicy('{{.name}}')" title="{{t " tooltip.delete_policy"}}">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -134,7 +134,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create New Policy</h5>
+                    <h5 class="modal-title">{{t "modal.create_new_policy"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="createPolicyForm">
@@ -147,7 +147,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="policyDocument" class="form-label">Policy Document (JSON)</label>
+                            <label for="policyDocument" class="form-label">{{t "form.policy_document_json"}}</label>
                             <textarea class="form-control policy-editor" id="policyDocument" name="policy" rows="15" placeholder="Enter the policy document in JSON format..." required></textarea>
                             <div class="form-text">
                                 Enter a valid JSON policy document.
@@ -179,7 +179,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Policy</h5>
+                    <h5 class="modal-title">{{t "ui.edit_policy"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="editPolicyForm">
@@ -190,7 +190,7 @@
                             <input type="hidden" id="editPolicyNameHidden" name="policy_name">
                         </div>
                         <div class="mb-3">
-                            <label for="editPolicyDocument" class="form-label">Policy Document (JSON)</label>
+                            <label for="editPolicyDocument" class="form-label">{{t "form.policy_document_json"}}</label>
                             <textarea class="form-control policy-editor" id="editPolicyDocument" name="policy" rows="15" placeholder="Loading policy..." required></textarea>
                             <div class="form-text">
                                 Modify the policy document JSON.
@@ -210,7 +210,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Policy</button>
+                        <button type="submit" class="btn btn-primary">{{t "ui.update_policy"}}</button>
                     </div>
                 </form>
             </div>
@@ -222,7 +222,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">View Policy</h5>
+                    <h5 class="modal-title">{{t "ui.view_policy"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -231,7 +231,7 @@
                         <input type="text" class="form-control" id="viewPolicyName" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="viewPolicyDocument" class="form-label">Policy Document (JSON)</label>
+                        <label for="viewPolicyDocument" class="form-label">{{t "form.policy_document_json"}}</label>
                         <textarea class="form-control policy-editor" id="viewPolicyDocument" rows="15" readonly placeholder="Loading policy..."></textarea>
                     </div>
                 </div>
@@ -334,7 +334,7 @@
                     const result = await response.json();
 
                     if (response.ok) {
-                        alert('Policy deleted successfully');
+                        alert('{{t "success.policy_deleted"}}');
                         location.reload();
                     } else {
                         alert('Error: ' + result.error);
@@ -413,7 +413,7 @@
                 if (response.ok) {
                     const modal = bootstrap.Modal.getInstance(document.getElementById('createPolicyModal'));
                     modal.hide();
-                    alert('Policy created successfully');
+                    alert('{{t "success.policy_created"}}');
                     location.reload();
                 } else {
                     alert('Error: ' + result.error);
@@ -456,7 +456,7 @@
                 if (response.ok) {
                     const modal = bootstrap.Modal.getInstance(document.getElementById('editPolicyModal'));
                     modal.hide();
-                    alert('Policy updated successfully');
+                    alert('{{t "success.policy_updated"}}');
                     location.reload();
                 } else {
                     alert('Error: ' + result.error);

@@ -79,7 +79,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Group List</h5>
+                                <h5 class="card-title mb-0">{{t "list.group_list"}}</h5>
                             </div>
                             <div class="card-body">
                                 {{if .groups}}
@@ -142,7 +142,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create New Group</h5>
+                    <h5 class="modal-title">{{t "modal.create_new_group"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="createGroupForm">
@@ -167,7 +167,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Group Members</h5>
+                    <h5 class="modal-title">{{t "modal.edit_group_members"}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="editMembersForm">
@@ -179,7 +179,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Current Members</label>
+                            <label class="form-label">{{t "form.current_members"}}</label>
                             <div id="currentMembers" class="border rounded p-3 bg-light">
                                 <span class="text-muted">Loading...</span>
                             </div>
