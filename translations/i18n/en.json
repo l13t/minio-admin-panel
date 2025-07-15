@@ -631,5 +631,239 @@
   },
   "welcome": {
     "other": "Welcome"
+  },
+  "modal.create_new_bucket": {
+    "other": "Create New Bucket"
+  },
+  "modal.create_new_user": {
+    "other": "Create New User"
+  },
+  "modal.create_new_group": {
+    "other": "Create New Group"
+  },
+  "modal.create_new_policy": {
+    "other": "Create New Policy"
+  },
+  "modal.create_new_service_account": {
+    "other": "Create New Service Account"
+  },
+  "modal.edit_group_members": {
+    "other": "Edit Group Members"
+  },
+  "modal.edit_group_policy": {
+    "other": "Edit Group Policy"
+  },
+  "form.current_members": {
+    "other": "Current Members"
+  },
+  "form.group_name": {
+    "other": "Group Name"
+  },
+  "form.enter_usernames_comma": {
+    "other": "Enter usernames separated by commas"
+  },
+  "ui.toggle_view": {
+    "other": "Toggle View"
+  },
+  "ui.loading": {
+    "other": "Loading..."
+  },
+  "ui.connected": {
+    "other": "Connected"
+  },
+  "success.connection_test": {
+    "other": "Connection test successful!"
+  },
+  "success.metrics_refreshed": {
+    "other": "Metrics refreshed successfully!"
+  },
+  "success.policy_deleted": {
+    "other": "Policy deleted successfully"
+  },
+  "success.policy_created": {
+    "other": "Policy created successfully"
+  },
+  "success.policy_updated": {
+    "other": "Policy updated successfully"
+  },
+  "success.bucket_policy_updated": {
+    "other": "Bucket policy updated successfully"
+  },
+  "success.user_credentials_updated": {
+    "other": "User credentials updated successfully"
+  },
+  "success.service_account_created": {
+    "other": "Service Account Created Successfully"
+  },
+  "info.showing_detailed_view": {
+    "other": "Showing detailed user information. Click \"Toggle View\" to see access keys only."
+  },
+  "info.showing_keys_view": {
+    "other": "Showing access keys only. Click \"Toggle View\" to see full user information."
+  },
+  "app.name": {
+    "other": "MinIO Admin"
+  },
+  "app.license": {
+    "other": "MIT License"
+  },
+  "features.available": {
+    "other": "Available Features"
+  },
+  "features.upcoming": {
+    "other": "Upcoming Features"
+  },
+  "features.bucket_management": {
+    "other": "Bucket Management: Create, delete, and manage bucket policies"
+  },
+  "features.user_management": {
+    "other": "User Management: Create users, manage credentials and policies"
+  },
+  "features.group_management": {
+    "other": "Group Management: Organize users into groups with shared policies"
+  },
+  "features.policy_management": {
+    "other": "Policy Management: Create and manage custom access policies"
+  },
+  "features.service_accounts": {
+    "other": "Service Accounts: Generate service accounts for API access"
+  },
+  "features.realtime_metrics": {
+    "other": "Real-time Metrics: Monitor storage usage and server status"
+  },
+  "features.dark_theme": {
+    "other": "Dark theme support"
+  },
+  "features.multilang": {
+    "other": "Multi-language interface"
+  },
+  "features.session_management": {
+    "other": "Advanced user session management"
+  },
+  "features.audit_logging": {
+    "other": "Audit logging and reporting"
+  },
+  "features.backup_restore": {
+    "other": "Backup and restore functionality"
+  },
+  "list.group_list": {
+    "other": "Group List"
+  },
+  "form.bucket_name": {
+    "other": "Bucket Name"
+  },
+  "form.bucket_policy_json": {
+    "other": "Bucket Policy (JSON)"
+  },
+  "form.confirm_secret_key": {
+    "other": "Confirm Secret Key"
+  },
+  "form.service_account_name": {
+    "other": "Service account name"
+  },
+  "form.service_account_description": {
+    "other": "Service account description"
+  },
+  "form.enter_new_secret_key": {
+    "other": "Enter new secret key"
+  },
+  "form.policy_document_json": {
+    "other": "Policy Document (JSON)"
+  },
+  "form.edit_policy_name": {
+    "other": "Edit Policy Name"
+  },
+  "ui.update_policy": {
+    "other": "Update Policy"
+  },
+  "ui.view_policy": {
+    "other": "View Policy"
+  },
+  "ui.edit_bucket_policy": {
+    "other": "Edit Bucket Policy"
+  },
+  "ui.edit_policy": {
+    "other": "Edit Policy"
+  },
+  "ui.copied_to_clipboard": {
+    "other": "Copied to clipboard!"
+  },
+  "tooltip.copy_access_key": {
+    "other": "Copy Access Key"
+  },
+  "tooltip.view_details": {
+    "other": "View Details"
+  },
+  "tooltip.edit_credentials": {
+    "other": "Edit Credentials"
+  },
+  "tooltip.edit_policy": {
+    "other": "Edit Policy"
+  },
+  "tooltip.edit_groups": {
+    "other": "Edit Groups"
+  },
+  "tooltip.service_accounts": {
+    "other": "Service Accounts"
+  },
+  "tooltip.disable_user": {
+    "other": "Disable User"
+  },
+  "tooltip.enable_user": {
+    "other": "Enable User"
+  },
+  "tooltip.delete_user": {
+    "other": "Delete User"
+  },
+  "tooltip.toggle_visibility": {
+    "other": "Toggle Visibility"
+  },
+  "tooltip.generate_random_secret_key": {
+    "other": "Generate Random Secret Key"
+  },
+  "tooltip.view_policy": {
+    "other": "View Policy"
+  },
+  "tooltip.delete_policy": {
+    "other": "Delete Policy"
+  },
+  "tooltip.delete_service_account": {
+    "other": "Delete Service Account"
+  },
+  "ui.no_policy": {
+    "other": "No policy"
+  },
+  "ui.no_groups": {
+    "other": "No groups"
+  },
+  "ui.create_bucket": {
+    "other": "Create Bucket"
+  },
+  "ui.create_user": {
+    "other": "Create User"
+  },
+  "ui.loading_storage": {
+    "other": "Loading..."
+  },
+  "ui.user_details": {
+    "other": "User Details"
+  },
+  "ui.basic_information": {
+    "other": "Basic Information"
+  },
+  "ui.current_credentials": {
+    "other": "Current Credentials"
+  },
+  "ui.current_secret_key": {
+    "other": "Current Secret Key"
+  },
+  "ui.update_secret_key": {
+    "other": "Update Secret Key"
+  },
+  "ui.edit_user_credentials": {
+    "other": "Edit User Credentials"
+  },
+  "ui.secret_key_masked": {
+    "other": "Secret key is masked for security"
   }
 }
