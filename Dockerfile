@@ -3,8 +3,6 @@ FROM golang:1.24 AS builder
 # Set the working directory
 WORKDIR /app
 
-# Copy the Go modules manifests
-COPY go.mod go.sum ./
 # Copy the source code
 COPY . .
 # Download depended
