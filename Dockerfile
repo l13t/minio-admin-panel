@@ -5,7 +5,8 @@ WORKDIR /app
 
 # Copy the source code
 COPY . .
-# Download depended
+# Download dependencies
+RUN go mod download
 
 # Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o minio-admin-panel .
