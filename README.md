@@ -1,5 +1,7 @@
 # MinIO Admin Panel
 
+__Archived since Minio is not open source anymore__
+
 A modern web interface for managing MinIO object storage instances. This Go-based web application provides a user-friendly dashboard for managing buckets, users, policies, and monitoring your MinIO deployment.
 
 ## Features
