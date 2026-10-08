@@ -3,12 +3,10 @@ FROM golang:1.24 AS builder
 # Set the working directory
 WORKDIR /app
 
-# Copy the Go modules manifests
-COPY go.mod go.sum ./
-# Download dependencies
-RUN go mod download
 # Copy the source code
 COPY . .
+# Download dependencies
+RUN go mod download
 
 # Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o minio-admin-panel .

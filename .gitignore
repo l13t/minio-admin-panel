@@ -32,6 +32,3 @@ pids
 
 # Dependencies
 node_modules/
-
-# Docker
-.dockerignore
